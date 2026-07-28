@@ -1,0 +1,161 @@
+{
+  "version": "3.0.0",
+  "title": "Kristian Mesa - SEO Specialist Portfolio Template",
+  "type": "page",
+  "content": [
+    {
+      "id": "hero_sec_01",
+      "elType": "section",
+      "isInner": false,
+      "settings": {
+        "background_background": "classic",
+        "background_color": "#0B0E14",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "20",
+          "bottom": "80",
+          "left": "20"
+        }
+      },
+      "elements": [
+        {
+          "id": "hero_col_01",
+          "elType": "column",
+          "isInner": false,
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "hero_heading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Kristian Mesa — Local SEO & GBP Specialist",
+                "header_size": "h1",
+                "align": "center",
+                "title_color": "#FF9F1C"
+              }
+            },
+            {
+              "id": "hero_subtext",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style='text-align: center; color: #94A3B8; font-size: 1.2rem; max-width: 700px; margin: 0 auto 20px auto;'>Helping local businesses dominate Google Business Profile rankings, capture local organic search traffic, and execute high-authority citation building.</p>"
+              }
+            },
+            {
+              "id": "hero_btn",
+              "elType": "widget",
+              "widgetType": "button",
+              "settings": {
+                "text": "Contact Kristian Mesa",
+                "link": {
+                  "url": "mailto:Kristian.vauno@gmail.com"
+                },
+                "align": "center",
+                "button_type": "success"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "about_sec_02",
+      "elType": "section",
+      "isInner": false,
+      "settings": {
+        "background_background": "classic",
+        "background_color": "#121722",
+        "padding": {
+          "unit": "px",
+          "top": "60",
+          "right": "20",
+          "bottom": "60",
+          "left": "20"
+        }
+      },
+      "elements": [
+        {
+          "id": "about_col_01",
+          "elType": "column",
+          "isInner": false,
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "about_heading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "About & Expertise",
+                "header_size": "h2",
+                "align": "center",
+                "title_color": "#FFFFFF"
+              }
+            },
+            {
+              "id": "about_html_box",
+              "elType": "widget",
+              "widgetType": "html",
+              "settings": {
+                "html": "<div style='max-width: 800px; margin: 0 auto; color: #E2E8F0; line-height: 1.8; font-size: 1rem; background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,159,28,0.2);'><p><strong>Location:</strong> South Cotabato, Philippines</p><p><strong>Email:</strong> Kristian.vauno@gmail.com | <strong>Phone:</strong> 09632634962</p><p style='margin-top:15px;'>Local SEO expert specializing in Google Business Profile optimization, local rankings, and citation building. Helping businesses capture more local customers.</p><h3 style='color:#FF9F1C; margin-top:20px;'>Core Skills:</h3><ul style='padding-left: 20px; color:#CBD5E1;'><li>GBP Optimization & Local Search SEO</li><li>Citation Building & Local Directories</li><li>Keyword Research (Semrush & Ahrefs)</li><li>On-Page SEO & Content Creation</li><li>Technical Audit (Screaming Frog) & GA4 Reporting</li><li>Graphic Design & Canva Visuals</li></ul></div>"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exp_sec_03",
+      "elType": "section",
+      "isInner": false,
+      "settings": {
+        "background_background": "classic",
+        "background_color": "#0B0E14",
+        "padding": {
+          "unit": "px",
+          "top": "60",
+          "right": "20",
+          "bottom": "60",
+          "left": "20"
+        }
+      },
+      "elements": [
+        {
+          "id": "exp_col_01",
+          "elType": "column",
+          "isInner": false,
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "exp_heading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Work Experience",
+                "header_size": "h2",
+                "align": "center",
+                "title_color": "#FF9F1C"
+              }
+            },
+            {
+              "id": "exp_html_content",
+              "elType": "widget",
+              "widgetType": "html",
+              "settings": {
+                 "html": "<div style='max-width: 800px; margin: 0 auto 20px auto; background: rgba(22, 27, 38, 0.9); padding: 30px; border-radius: 12px; border-left: 4px solid #FF9F1C;'><h3 style='color:#FFF; font-size:1.4rem; margin-bottom:5px;'>Raphael Bergmann — Client SEO Projects</h3><p style='color:#FFB703; font-size:0.9rem; margin-bottom:15px;'>May 2026 – Present | Websites: <strong>asphaltpro.ca</strong> & <strong>championgym.ca</strong></p><ul style='color:#CBD5E1; padding-left:20px; line-height:1.7;'><li>Executed targeted Local SEO, GBP optimization, and search visibility strategies for Asphalt Pro (asphaltpro.ca) and Champion Gym (championgym.ca).</li><li>Optimized local citations, keyword targeting, and on-page content structures for commercial paving and fitness business verticals.</li></ul><p style='margin-top:15px; color:#FF9F1C; font-weight:bold;'>GSC Performance Proofs: 113 Clicks / 12.7K Impressions (asphaltpro.ca) | 1.01K Clicks / 36K Impressions (championgym.ca)</p></div><div style='max-width: 800px; margin: 0 auto; background: rgba(22, 27, 38, 0.9); padding: 30px; border-radius: 12px; border-left: 4px solid #FF9F1C;'><h3 style='color:#FFF; font-size:1.4rem; margin-bottom:5px;'>SEO Support — Cloud 7 Agency</h3><p style='color:#FFB703; font-size:0.9rem; margin-bottom:10px;'>April 2025 – Present</p><p style='color:#94A3B8; font-size:0.85rem; margin-bottom:15px;'>Client Accounts Handled: <strong>National Concrete Polishing</strong> | <strong>Top Gun Garage</strong> | <strong>Whetzel Home Collective</strong> | <strong>AI SEO Local</strong> | <strong>QuickPassport</strong> | <strong>Rob Visnjak Real Estate Group</strong> | <strong>SCC</strong> | <strong>Concrete Contractors Canada</strong></p><ul style='color:#CBD5E1; padding-left:20px; line-height:1.7;'><li>Built and managed local <strong>Citations</strong> across directories to improve search authority and NAP consistency.</li><li>Executed <strong>GBP Optimization</strong> & regular <strong>GBP Posting</strong>, managing customer reviews and post updates.</li><li>Performed thorough <strong>On-page Optimization</strong>, including meta tag refinement, heading structures, and internal linking.</li><li>Managed <strong>Blog Posting</strong> and content updates across client website content management systems.</li><li>Conducted in-depth <strong>Keyword Research</strong> and competitive analysis for 10+ small business clients.</li></ul><p style='margin-top:15px; color:#FF9F1C; font-weight:bold;'>GSC Performance Highlights: 34.8K Clicks (National Concrete Polishing) | 1.06K Clicks (Top Gun Garage) | 5.17M+ Organic Impressions Across Accounts</p></div>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
