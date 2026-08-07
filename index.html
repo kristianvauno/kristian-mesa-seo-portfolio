@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-theme">
+    <!-- Global Interactive Ambient Background (Particles, Mesh Orbs & Spotlight) -->
+    <div id="global-bg-container" class="global-bg-container">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-spotlight-layer" id="hero-spotlight"></div>
+        <div class="hero-mesh-orb orb-1"></div>
+        <div class="hero-mesh-orb orb-2"></div>
+        <div class="hero-mesh-orb orb-3"></div>
+        <div class="hero-mesh-orb orb-4"></div>
+        <canvas id="hero-particles-canvas" class="hero-particles"></canvas>
+    </div>
+
     <!-- Navbar -->
     <header class="navbar" id="navbar">
         <div class="nav-container">
@@ -25,7 +36,9 @@
                 <a href="#skills" class="nav-item"><i class="fa-solid fa-bolt"></i> Skills & Tools</a>
                 <a href="#experience" class="nav-item"><i class="fa-solid fa-briefcase"></i> Experience</a>
                 <a href="#audit-tool" class="nav-item"><i class="fa-solid fa-chart-line"></i> Audit Tool</a>
+                <a href="#faq" class="nav-item"><i class="fa-solid fa-circle-question"></i> FAQ</a>
 
+                <button id="open-resume-btn-nav" class="btn btn-outline nav-btn"><i class="fa-solid fa-file-pdf"></i> Resume</button>
                 <a href="#contact" class="btn btn-primary nav-btn"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
             </nav>
 
@@ -38,29 +51,28 @@
     <main>
         <!-- Hero Section -->
         <section class="hero-section" id="hero">
-            <div class="hero-bg-overlay"></div>
             <div class="hero-container">
                 <div class="hero-content">
                     <div class="status-pill">
                         <span class="status-dot"></span> Available for Local SEO Projects & Consultations
                     </div>
                     <h1 class="hero-title">
-                        Dominate Local Search & <span class="gradient-text">Capture More Customers</span>
+                        Dominate Local Search & <span class="gradient-text dynamic-typewriter" id="hero-typewriter">Capture More Customers</span>
                     </h1>
                     <p class="hero-subtitle">
                         Hi, I'm <strong>Kristian Mesa</strong> — a results-driven <strong>Local SEO Specialist</strong>. I specialize in Google Business Profile (GBP) optimization, local search rankings, high-authority citation building, and technical SEO.
                     </p>
                     
                     <div class="hero-stats">
-                        <div class="stat-card">
+                        <div class="stat-card interactive-stat">
                             <h3 class="counter" data-target="10">0</h3><span class="stat-plus">+</span>
                             <p>Small Business Clients</p>
                         </div>
-                        <div class="stat-card">
-                            <h3 class="counter" data-target="3">0</h3><span class="stat-plus"> Top</span>
+                        <div class="stat-card interactive-stat">
+                            <h3 class="counter" data-target="3">0</h3><span class="stat-plus">Top</span>
                             <p>Top 3 Local Search Target</p>
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card interactive-stat">
                             <h3 class="counter" data-target="240">0</h3><span class="stat-plus">%</span>
                             <p>Average Traffic Boost</p>
                         </div>
@@ -70,16 +82,33 @@
                         <a href="#audit-tool" class="btn btn-primary btn-lg glow-effect">
                             <i class="fa-solid fa-magnifying-glass-chart"></i> Run Free Local Audit
                         </a>
+                        <button id="open-resume-btn-hero" class="btn btn-secondary btn-lg">
+                            <i class="fa-solid fa-file-pdf"></i> Download CV
+                        </button>
                         <a href="#contact" class="btn btn-outline btn-lg">
                             <i class="fa-solid fa-calendar-check"></i> Get In Touch
                         </a>
-
                     </div>
                 </div>
 
-                <div class="hero-card-container">
-                    <div class="profile-card glass-card">
+                <div class="hero-card-container" id="hero-card-3d">
+                    <!-- Floating Interactive Badges -->
+                    <div class="floating-hero-badge badge-top-right float-anim-1">
+                        <i class="fa-solid fa-fire text-gold"></i>
+                        <span>#1 Map Pack Ranker</span>
+                    </div>
+                    <div class="floating-hero-badge badge-bottom-left float-anim-2">
+                        <i class="fa-solid fa-arrow-trend-up text-emerald"></i>
+                        <span>+240% Traffic Boost</span>
+                    </div>
+                    <div class="floating-hero-badge badge-top-left float-anim-3">
+                        <i class="fa-solid fa-shield-halved text-cyan"></i>
+                        <span>Verified GBP Pro</span>
+                    </div>
+
+                    <div class="profile-card glass-card tilt-target">
                         <div class="profile-avatar-wrapper">
+                            <div class="avatar-glow-ring"></div>
                             <div class="profile-avatar">
                                 <img src="assets/profile_photo.jpg" alt="Kristian Mesa - SEO Specialist" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; border-radius: 50%; border: 3px solid var(--primary); display: block;">
                             </div>
@@ -332,13 +361,13 @@
                             <div class="timeline-header">
                                 <div>
                                     <h3 class="company-name">Cloud 7 Agency</h3>
-                                    <h4 class="job-role">SEO Support</h4>
+                                    <h4 class="job-role">SEO Specialist</h4>
                                 </div>
-                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> April 2025 – Present</span>
+                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> April 2023 – Present</span>
                             </div>
 
                             <div class="client-accounts-wrapper" style="margin-bottom: 1.2rem;">
-                                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.6rem;"><i class="fa-solid fa-briefcase"></i> Client Accounts Handled:</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.6rem;"><i class="fa-solid fa-briefcase"></i> Client Accounts Handled (10+ Clients):</span>
                                 <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> National Concrete Polishing</span>
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-star"></i> Top Gun Garage</span>
@@ -354,23 +383,19 @@
                             <ul class="experience-list">
                                 <li>
                                     <i class="fa-solid fa-circle-check"></i>
-                                    <span>Built and managed local <strong>Citations</strong> across directories to improve search authority and NAP consistency.</span>
+                                    <span>Assisted in local keyword research and competitive analysis for <strong>10+ small business clients</strong> Google Analytics Reporting.</span>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-circle-check"></i>
-                                    <span>Executed <strong>GBP Optimization</strong> & regular <strong>GBP Posting</strong>, managing customer reviews and post updates to drive local engagement.</span>
+                                    <span>Monitored and responded to customer reviews on <strong>Google Business Profile</strong> and other review platforms.</span>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-circle-check"></i>
-                                    <span>Performed thorough <strong>On-page Optimization</strong>, including meta tag refinement, heading structures, and internal linking.</span>
+                                    <span>Supported on-page optimization efforts including meta tags, content optimization, and internal linking.</span>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-circle-check"></i>
-                                    <span>Managed <strong>Blog Posting</strong> and content updates across client website content management systems.</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Conducted in-depth <strong>Keyword Research</strong> and competitive analysis for <strong>10+ small business clients</strong>.</span>
+                                    <span>Tracked local search rankings and prepared weekly performance reports using industry-leading SEO tools.</span>
                                 </li>
                             </ul>
 
@@ -414,6 +439,60 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Interactive FAQ Accordion -->
+        <section class="section faq-section" id="faq">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">FREQUENTLY ASKED QUESTIONS</span>
+                    <h2 class="section-title">Got Questions? <span class="gradient-text">We Have Answers</span></h2>
+                </div>
+
+                <div class="faq-accordion-wrapper">
+                    <div class="faq-item glass-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-clock"></i> How fast can my business expect to see Google Map Pack ranking improvements?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Most small business clients start seeing noticeable Map Pack movement within <strong>30 to 60 days</strong> depending on local competition density, existing GBP authority, and NAP consistency. Ongoing optimization solidifies long-term Top 3 rankings.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-store"></i> What is a Google Business Profile (GBP) and why is it crucial for local sales?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Google Business Profile is Google's local map listing. Over 46% of all Google searches have local intent. Ranking in Google's Top 3 Map Pack captures over 70% of ready-to-buy local callers looking for immediate services in your city.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-list-check"></i> What is included in your Local SEO service deliverables?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Deliverables include complete GBP profile optimization, 30+ NAP citation building, JSON-LD LocalBusiness schema implementation, localized keyword silos, on-page SEO, review management guidance, and monthly Google Search Console performance reports.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card">
+                        <button class="faq-question">
+                            <span><i class="fa-solid fa-globe"></i> Do you work with businesses outside South Cotabato / International clients?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes! I manage Local SEO strategies for clients across North America (Canada & US) as well as international client accounts remotely with full communication via email and video consultations.</p>
                         </div>
                     </div>
                 </div>
@@ -533,25 +612,43 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Verified Professional Networks -->
+                        <div class="social-badges-container">
+                            <h4>Verified Professional Networks</h4>
+                            <div class="social-badges-grid">
+                                <a href="https://www.onlinejobs.ph/jobseekers/info/3367873" target="_blank" rel="noopener noreferrer" class="social-badge-chip ojp-badge" title="View Profile on OnlineJobs.ph">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    <span>OnlineJobs.ph Profile</span>
+                                </a>
+                                <button id="open-resume-btn-contact" class="social-badge-chip resume-badge" title="View Full Resume CV">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                    <span>View Resume CV</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="contact-form-card glass-card">
-                        <form id="contact-form" class="contact-form">
+                        <form id="contact-form" class="contact-form" action="https://formsubmit.co/Kristian.vauno@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Local SEO Inquiry from Portfolio">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
                             <div class="form-group">
                                 <label for="sender-name">Your Name</label>
-                                <input type="text" id="sender-name" placeholder="John Doe" required>
+                                <input type="text" id="sender-name" name="name" placeholder="John Doe" required>
                             </div>
                             <div class="form-group">
                                 <label for="sender-email">Your Email</label>
-                                <input type="email" id="sender-email" placeholder="john@example.com" required>
+                                <input type="email" id="sender-email" name="email" placeholder="john@example.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="sender-subject">Subject</label>
-                                <input type="text" id="sender-subject" placeholder="Local SEO Project Inquiry" required>
+                                <input type="text" id="sender-subject" name="subject" placeholder="Local SEO Project Inquiry" required>
                             </div>
                             <div class="form-group">
                                 <label for="sender-message">Message</label>
-                                <textarea id="sender-message" rows="5" placeholder="Tell me about your business and your SEO goals..." required></textarea>
+                                <textarea id="sender-message" name="message" rows="5" placeholder="Tell me about your business and your SEO goals..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg width-full glow-effect">
                                 <i class="fa-solid fa-paper-plane"></i> Send Message
@@ -573,6 +670,132 @@
             </div>
         </div>
     </footer>
+
+    <!-- Interactive Resume / CV Modal -->
+    <div id="resume-modal" class="modal-backdrop hidden">
+        <div class="modal-card glass-card">
+            <button id="close-resume-modal" class="modal-close-btn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="resume-header">
+                <div class="resume-avatar">
+                    <img src="assets/profile_photo.jpg" alt="Kristian Mesa">
+                </div>
+                <div class="resume-headline">
+                    <h2>Kristian Mesa</h2>
+                    <p class="resume-role"><strong>SEO Specialist & Local Optimization Expert</strong></p>
+                    <div class="resume-meta-tags">
+                        <span><i class="fa-solid fa-globe"></i> kristianmesa.gensanseo.com</span>
+                        <span><i class="fa-solid fa-envelope"></i> Kristian.vauno@gmail.com</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Philippines, South Cotabato</span>
+                        <span><i class="fa-solid fa-phone"></i> 09632634962</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-body">
+                <div class="resume-section">
+                    <h3><i class="fa-solid fa-user-gear"></i> About Me</h3>
+                    <p>Local SEO expert specializing in Google Business Profile optimization, local rankings, and citation building. Helping businesses capture more local customers.</p>
+                </div>
+
+                <div class="resume-section">
+                    <h3><i class="fa-solid fa-toolbox"></i> Tools & Software Toolkit</h3>
+                    <div class="resume-skills-chips">
+                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-screwdriver-wrench"></i> Semrush</span>
+                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-magnifying-glass"></i> AHref</span>
+                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-chart-line"></i> Google Analytics</span>
+                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-palette"></i> Canva</span>
+                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-bug"></i> Screaming Frog</span>
+                    </div>
+                </div>
+
+                <div class="resume-section">
+                    <h3><i class="fa-solid fa-briefcase"></i> Work Experience</h3>
+                    <div class="resume-timeline">
+                        <!-- Raphael Bergmann -->
+                        <div class="timeline-item" style="margin-bottom: 1.8rem;">
+                            <div class="timeline-header">
+                                <div>
+                                    <h4 style="margin:0; font-size:1.05rem;">SEO Specialist & Local Optimization Consultant</h4>
+                                    <span class="timeline-company" style="margin-top:0.3rem; display:inline-block;">Raphael Bergmann</span>
+                                </div>
+                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> May 2026 – Present</span>
+                            </div>
+                            <div style="margin: 0.5rem 0 0.8rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <span style="font-size: 0.78rem; background: rgba(255,159,28,0.12); border: 1px solid var(--border-color); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-weight: 600;"><i class="fa-solid fa-globe"></i> asphaltpro.ca</span>
+                                <span style="font-size: 0.78rem; background: rgba(255,159,28,0.12); border: 1px solid var(--border-color); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-weight: 600;"><i class="fa-solid fa-globe"></i> championgym.ca</span>
+                            </div>
+                            <ul>
+                                <li>Executed targeted <strong>Local SEO</strong>, GBP optimization, and search visibility strategies for <strong>asphaltpro.ca</strong> and <strong>championgym.ca</strong>.</li>
+                                <li>Optimized local citations, keyword targeting, and on-page content structures for paving & fitness business verticals.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Cloud 7 Agency -->
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <div>
+                                    <h4 style="margin:0; font-size:1.05rem;">SEO Specialist</h4>
+                                    <span class="timeline-company" style="margin-top:0.3rem; display:inline-block;">Cloud 7 Agency</span>
+                                </div>
+                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> April 2023 – Present</span>
+                            </div>
+                            <div style="margin: 0.5rem 0 0.8rem 0;">
+                                <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.4rem;">Client Accounts Handled (10+ Clients):</span>
+                                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">National Concrete Polishing</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Top Gun Garage</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Whetzel Home Collective</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">AI SEO Local</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">QuickPassport</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Rob Visnjak Real Estate Group</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">SCC</span>
+                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Concrete Contractors Canada</span>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>Assisted in local keyword research and competitive analysis for <strong>10+ small business clients</strong> Google Analytics Reporting.</li>
+                                <li>Monitored and responded to customer reviews on <strong>Google Business Profile</strong> and other review platforms.</li>
+                                <li>Supported on-page optimization efforts including meta tags, content optimization, and internal linking.</li>
+                                <li>Tracked local search rankings and prepared weekly performance reports using SEO tools.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resume-section">
+                    <h3><i class="fa-solid fa-bolt"></i> Personal Skills</h3>
+                    <div class="resume-skills-chips">
+                        <span>GBP Optimization</span>
+                        <span>Citation</span>
+                        <span>Google Maps SEO</span>
+                        <span>Keyword Research</span>
+                        <span>On-Page SEO</span>
+                        <span>Technical Audit</span>
+                        <span>Content Creation</span>
+                        <span>Graphic Design</span>
+                    </div>
+                </div>
+
+                <div class="resume-section">
+                    <h3><i class="fa-solid fa-heart"></i> Interests & Lifestyle</h3>
+                    <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem;">
+                        <span style="font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-map-location-dot text-gold"></i> TRAVEL</span>
+                        <span style="font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-gamepad text-gold"></i> GAMING</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-footer">
+                <button id="print-resume-btn" class="btn btn-primary glow-effect">
+                    <i class="fa-solid fa-print"></i> Download / Print Resume (PDF)
+                </button>
+                <button id="close-resume-btn-footer" class="btn btn-outline">
+                    <i class="fa-solid fa-xmark"></i> Close Preview
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

@@ -5,11 +5,14 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
+    initHeroInteractivity();
     initAnimatedCounters();
     initAuditTool();
     initContactForm();
     initElementorDownload();
     initGSCCarousel();
+    initResumeModal();
+    initFaqAccordion();
 });
 
 /* Mobile Menu Toggle & Navbar Scroll Effect */
@@ -369,34 +372,91 @@ function generateHonestAuditData(displayDomain, targetLoc) {
     };
 }
 
-/* Contact Form Feedback */
+/* Contact Form Email Dispatcher */
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
     const responseBox = document.getElementById('contact-response');
 
     if (!contactForm || !responseBox) return;
 
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const senderName = document.getElementById('sender-name').value.trim();
+        const senderEmail = document.getElementById('sender-email').value.trim();
+        const senderSubject = document.getElementById('sender-subject').value.trim();
+        const senderMessage = document.getElementById('sender-message').value.trim();
+
         const submitBtn = contactForm.querySelector('button[type="submit"]');
 
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...';
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
         submitBtn.disabled = true;
+        responseBox.classList.add('hidden');
 
-        setTimeout(() => {
-            submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sent Successfully';
+        // Check if browsing directly via local disk (file://)
+        if (window.location.protocol === 'file:') {
+            // FormSubmit requires an HTTP/HTTPS web server (or live domain).
+            // For file:// protocol, construct a mailto link to immediately launch default mail app
+            const mailtoUrl = `mailto:Kristian.vauno@gmail.com?subject=${encodeURIComponent(senderSubject)}&body=${encodeURIComponent(`From: ${senderName} (${senderEmail})\nSubject: ${senderSubject}\n\nMessage:\n${senderMessage}`)}`;
+            
+            submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Opening Mail Client...';
             responseBox.className = 'contact-response success';
-            responseBox.innerHTML = `Thank you, <strong>${senderName}</strong>! Kristian has received your inquiry and will email you back shortly at <strong>Kristian.vauno@gmail.com</strong>.`;
+            responseBox.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Opening your email application to send to <strong>Kristian.vauno@gmail.com</strong>...`;
+            responseBox.classList.remove('hidden');
+
+            setTimeout(() => {
+                window.location.href = mailtoUrl;
+                contactForm.reset();
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+                submitBtn.disabled = false;
+            }, 800);
+            return;
+        }
+
+        // On HTTP / HTTPS (Local Server, Vercel, Netlify, Live Domain): Send via FormSubmit AJAX
+        try {
+            const res = await fetch('https://formsubmit.co/ajax/Kristian.vauno@gmail.com', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    Name: senderName,
+                    Email: senderEmail,
+                    Subject: senderSubject,
+                    Message: senderMessage,
+                    _subject: `New Portfolio Inquiry from ${senderName}: ${senderSubject}`
+                })
+            });
+
+            const result = await res.json();
+
+            if (res.ok || result.success === "true" || result.success === true) {
+                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sent Successfully';
+                responseBox.className = 'contact-response success';
+                responseBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thank you, <strong>${senderName}</strong>! Your message was sent automatically to <strong>Kristian.vauno@gmail.com</strong>. I'll get back to you shortly!`;
+                responseBox.classList.remove('hidden');
+                contactForm.reset();
+            } else {
+                throw new Error(result.message || 'Submission error');
+            }
+        } catch (err) {
+            console.warn('FormSubmit AJAX fallback triggered:', err);
+            const mailtoUrl = `mailto:Kristian.vauno@gmail.com?subject=${encodeURIComponent(senderSubject)}&body=${encodeURIComponent(`From: ${senderName} (${senderEmail})\nSubject: ${senderSubject}\n\nMessage:\n${senderMessage}`)}`;
+            window.location.href = mailtoUrl;
+            
+            submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Opening Mail Client...';
+            responseBox.className = 'contact-response success';
+            responseBox.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Draft created! Opening email application for <strong>Kristian.vauno@gmail.com</strong>.`;
             responseBox.classList.remove('hidden');
             contactForm.reset();
-
+        } finally {
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
                 submitBtn.disabled = false;
             }, 3000);
-        }, 1000);
+        }
     });
 }
 
@@ -469,4 +529,231 @@ function initGSCCarousel() {
 
     setupSingleCarousel('gsc-carousel', 'gsc-prev-btn', 'gsc-next-btn', 'gsc-counter');
     setupSingleCarousel('raphael-gsc-carousel', 'raphael-gsc-prev-btn', 'raphael-gsc-next-btn', 'raphael-gsc-counter');
+}
+
+/* Dynamic Interactive 3D Hero Experience, Parallax, Cursor Spotlight & Typewriter */
+function initHeroInteractivity() {
+    const heroSection = document.getElementById('hero');
+    const heroCardContainer = document.getElementById('hero-card-3d');
+    const tiltTarget = heroCardContainer ? heroCardContainer.querySelector('.tilt-target') : null;
+    const spotlightLayer = document.getElementById('hero-spotlight');
+    const typewriterElem = document.getElementById('hero-typewriter');
+    const canvas = document.getElementById('hero-particles-canvas');
+
+    // 1. Full-Page Mouse Spotlight & 3D Tilt Parallax Effect
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        // Update global spotlight position
+        if (spotlightLayer) {
+            document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
+        }
+
+        // 3D Card Tilt (when hovering near hero card container)
+        if (heroCardContainer && tiltTarget) {
+            const cardRect = heroCardContainer.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            
+            const rotateX = ((e.clientY - cardCenterY) / (cardRect.height / 2)) * -12;
+            const rotateY = ((e.clientX - cardCenterX) / (cardRect.width / 2)) * 12;
+
+            tiltTarget.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+        }
+    });
+
+    // Reset 3D Tilt on Mouse Leave
+    if (heroCardContainer && tiltTarget) {
+        heroCardContainer.addEventListener('mouseleave', () => {
+            tiltTarget.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    }
+
+    // 2. Dynamic Typewriter Headline Rotator
+    if (typewriterElem) {
+        const phrases = [
+            "Capture More Customers",
+            "Rank #1 on Google Maps",
+            "Drive 3X Local Leads",
+            "Dominate Local Search"
+        ];
+        let phraseIdx = 0;
+        let charIdx = phrases[0].length;
+        let isDeleting = false;
+        let speed = 100;
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIdx];
+
+            if (isDeleting) {
+                typewriterElem.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+                speed = 50;
+            } else {
+                typewriterElem.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+                speed = 100;
+            }
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                isDeleting = true;
+                speed = 2200; // Pause at full phrase
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                speed = 400; // Pause before next phrase
+            }
+
+            setTimeout(typeLoop, speed);
+        }
+
+        setTimeout(typeLoop, 2000);
+    }
+
+    // 3. Full-Page Interactive Particle Canvas
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const numParticles = Math.min(Math.floor(width / 22), 65);
+        const particles = [];
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.45,
+                vy: (Math.random() - 0.5) * 0.45,
+                alpha: Math.random() * 0.5 + 0.25
+            });
+        }
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 159, 28, ${p.alpha})`;
+                ctx.fill();
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(255, 159, 28, ${0.15 * (1 - dist / 130)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(renderParticles);
+        }
+
+        renderParticles();
+    }
+}
+
+/* Interactive Resume Modal & Download Handler */
+function initResumeModal() {
+    const modal = document.getElementById('resume-modal');
+    const openBtns = [
+        document.getElementById('open-resume-btn-nav'),
+        document.getElementById('open-resume-btn-hero'),
+        document.getElementById('open-resume-btn-contact')
+    ];
+    const closeBtns = [
+        document.getElementById('close-resume-modal'),
+        document.getElementById('close-resume-btn-footer')
+    ];
+    const printBtn = document.getElementById('print-resume-btn');
+
+    if (!modal) return;
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Lock background scrolling
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    openBtns.forEach(btn => {
+        if (btn) btn.addEventListener('click', openModal);
+    });
+
+    closeBtns.forEach(btn => {
+        if (btn) btn.addEventListener('click', closeModal);
+    });
+
+    // Close when clicking dark backdrop outside modal card
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    // Print / Download PDF Handler
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+}
+
+/* FAQ Accordion Toggle */
+function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                faqItems.forEach(otherItem => otherItem.classList.remove('active'));
+
+                // If not active, open clicked item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    });
 }
