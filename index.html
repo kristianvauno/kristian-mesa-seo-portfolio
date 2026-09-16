@@ -10,8 +10,83 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        (function () {
+            try {
+                var force = new URLSearchParams(location.search).get('intro') === '1';
+                var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                var seen = sessionStorage.getItem('km-intro-played') === '1';
+                var hash = location.hash || '';
+                var deep = hash.length > 1 && hash !== '#hero' && hash !== '#intro';
+                if (!force && (reduce || seen || deep)) {
+                    document.documentElement.classList.add('intro-complete');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body class="dark-theme">
+    <div id="site-intro" class="site-intro" role="dialog" aria-modal="true" aria-label="Kristian Mesa introduction">
+        <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
+        <div class="intro-vignette" aria-hidden="true"></div>
+        <div class="intro-grid" aria-hidden="true"></div>
+        <div class="intro-scanlines" aria-hidden="true"></div>
+        <div class="intro-flare" aria-hidden="true"></div>
+        <div class="intro-flash" aria-hidden="true"></div>
+
+        <div class="intro-stage">
+            <div class="intro-search" id="intro-search">
+                <div class="intro-search-chrome">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <span class="intro-search-query" id="intro-search-query"></span>
+                    <span class="intro-caret" aria-hidden="true"></span>
+                </div>
+                <p class="intro-status" id="intro-status">Initializing local search…</p>
+            </div>
+
+            <div class="intro-identity" id="intro-identity">
+                <div class="intro-pin-wrap" aria-hidden="true">
+                    <span class="intro-ring r1"></span>
+                    <span class="intro-ring r2"></span>
+                    <span class="intro-ring r3"></span>
+                    <svg class="intro-pin-svg" viewBox="0 0 64 64" fill="none">
+                        <path d="M32 4C20.4 4 11 14.1 11 26.4 11 42.2 32 60 32 60s21-17.8 21-33.6C53 14.1 43.6 4 32 4z" fill="url(#introPinGrad)" />
+                        <circle cx="32" cy="25" r="9" fill="#0B0E14" />
+                        <circle cx="32" cy="25" r="4.5" fill="#FFB703" />
+                        <defs>
+                            <linearGradient id="introPinGrad" x1="11" y1="4" x2="53" y2="60">
+                                <stop stop-color="#FFB703" />
+                                <stop offset="1" stop-color="#FF7B00" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <p class="intro-kicker">Local SEO · Google Map Pack</p>
+                <h1 class="intro-title">
+                    <span class="intro-line" data-intro-letters>KRISTIAN</span>
+                    <span class="intro-line accent" data-intro-letters>MESA</span>
+                </h1>
+                <p class="intro-tagline">Ranking businesses where customers actually search</p>
+            </div>
+
+            <div class="intro-rank" id="intro-rank" aria-hidden="true">
+                <span class="intro-rank-kicker">Google Rank</span>
+                <span class="intro-rank-num" id="intro-rank-num">18</span>
+                <span class="intro-rank-label">Position one</span>
+            </div>
+        </div>
+
+        <div class="intro-progress" aria-hidden="true"><span class="intro-progress-fill" id="intro-progress-fill"></span></div>
+        <button type="button" id="intro-skip">Skip intro</button>
+    </div>
+
+    <noscript>
+        <style>
+            #site-intro { display: none !important; }
+            html.intro-complete, html { overflow: auto; }
+        </style>
+    </noscript>
+
     <!-- Global Interactive Ambient Background (Particles, Mesh Orbs & Spotlight) -->
     <div id="global-bg-container" class="global-bg-container">
         <div class="hero-bg-overlay"></div>
@@ -105,6 +180,10 @@
                         <i class="fa-solid fa-shield-halved text-cyan"></i>
                         <span>Verified GBP Pro</span>
                     </div>
+                    <div class="floating-hero-badge badge-ads-soon float-anim-1">
+                        <i class="fa-brands fa-google text-gold"></i>
+                        <span>Google Ads · Coming Soon</span>
+                    </div>
 
                     <div class="profile-card glass-card tilt-target">
                         <div class="profile-avatar-wrapper">
@@ -124,6 +203,7 @@
                                 <span>Local SEO</span>
                                 <span>GBP Optimization</span>
                                 <span>Content Creation</span>
+                                <span>Google Ads · Soon</span>
                             </div>
                         </div>
 
@@ -173,6 +253,41 @@
                         <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                         <h3>Interests & Lifestyle</h3>
                         <p>When I'm not auditing backlinks or optimizing meta tags, you can find me exploring new destinations (<strong>Travel</strong>) or immersing in competitive gaming (<strong>Gaming</strong>).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section gads-section" id="google-ads">
+            <div class="container">
+                <div class="gads-panel glass-card">
+                    <div class="gads-copy">
+                        <span class="soon-pill"><span class="soon-dot"></span> Coming Soon</span>
+                        <h2 class="gads-title">Google Ads <span class="gradient-text">Management</span></h2>
+                        <p class="gads-lead">Paid search is joining the stack. Search campaigns, Performance Max, and local ads — built to capture the demand SEO is already creating.</p>
+                    </div>
+                    <div class="gads-offers">
+                        <article class="gads-offer">
+                            <div class="gads-offer-icon"><i class="fa-solid fa-rectangle-ad"></i></div>
+                            <div>
+                                <h3>Search Ads</h3>
+                                <p>High-intent keywords that convert while organic rankings climb.</p>
+                            </div>
+                        </article>
+                        <article class="gads-offer">
+                            <div class="gads-offer-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <h3>Performance Max</h3>
+                                <p>Full-funnel campaigns across Search, Maps, YouTube, and Display.</p>
+                            </div>
+                        </article>
+                        <article class="gads-offer">
+                            <div class="gads-offer-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h3>Local Campaigns</h3>
+                                <p>Map Pack + paid local — one strategy for calls, visits, and leads.</p>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </div>
@@ -326,31 +441,59 @@
                                 </li>
                             </ul>
 
-                            <div class="gsc-results-container" style="margin-top: 1.5rem; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,159,28,0.3); border-radius: var(--radius-md); padding: 1.2rem 1.5rem;">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.5rem;">
-                                    <h4 style="font-size: 1rem; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-                                        <i class="fa-solid fa-chart-line"></i> Proven Google Search Console Reports
-                                    </h4>
-                                    <div class="gsc-slider-controls" style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <button id="raphael-gsc-prev-btn" aria-label="Previous Slide" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fa-solid fa-chevron-left"></i></button>
-                                        <span id="raphael-gsc-counter" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; min-width: 45px; text-align: center;">1 / 2</span>
-                                        <button id="raphael-gsc-next-btn" aria-label="Next Slide" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fa-solid fa-chevron-right"></i></button>
-                                    </div>
-                                </div>
+                            <section class="gsc-deck" data-gsc-deck id="raphael-gsc-deck" tabindex="0" aria-label="Google Search Console reports">
+                                <div class="gsc-deck-frame">
+                                    <header class="gsc-deck-header">
+                                        <div>
+                                            <h4><i class="fa-solid fa-chart-line"></i> Google Search Console Reports</h4>
+                                            <p class="gsc-deck-sub">Verified performance from live client accounts</p>
+                                        </div>
+                                        <div class="gsc-deck-controls">
+                                            <button class="gsc-nav gsc-nav-prev" type="button" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
+                                            <span class="gsc-counter" data-gsc-counter>1 of 2</span>
+                                            <button class="gsc-nav gsc-nav-next" type="button" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
+                                        </div>
+                                    </header>
 
-                                <div id="raphael-gsc-carousel" style="display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 0.3rem;">
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/raphael_gsc_proof_1.png" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/raphael_gsc_proof_1.png" alt="Raphael Bergmann GSC Performance Chart" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
+                                    <div class="gsc-stage-wrap">
+                                        <div class="gsc-stage" data-gsc-stage>
+                                            <article class="gsc-panel is-active"
+                                                data-src="assets/raphael_gsc_proof_1.png"
+                                                data-title="28-Day Performance Compare"
+                                                data-node="asphaltpro.ca"
+                                                data-clicks="113"
+                                                data-clicks-delta="+162.8%"
+                                                data-impr="12.7K"
+                                                data-impr-delta="+319.5%"
+                                                data-ctr="0.9%"
+                                                data-pos="20">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/raphael_gsc_proof_1.png" alt="Google Search Console 28-day compare: 113 clicks up 163 percent, 12.7k impressions">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                            <article class="gsc-panel"
+                                                data-src="assets/raphael_gsc_proof_2.png"
+                                                data-title="3-Month Performance Overview"
+                                                data-node="championgym.ca"
+                                                data-clicks="1.01K"
+                                                data-clicks-delta=""
+                                                data-impr="36K"
+                                                data-impr-delta=""
+                                                data-ctr="2.8%"
+                                                data-pos="9.3">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/raphael_gsc_proof_2.png" alt="ChampionGym Search Console: 1.01k clicks, 36k impressions, average position 9.3">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                        </div>
                                     </div>
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/raphael_gsc_proof_2.png" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/raphael_gsc_proof_2.png" alt="ChampionGym GSC Performance Overview" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
-                                    </div>
+
+                                    <div class="gsc-telemetry" data-gsc-telemetry></div>
+                                    <div class="gsc-thumbs" data-gsc-thumbs></div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
 
@@ -371,6 +514,8 @@
                                 <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> National Concrete Polishing</span>
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-star"></i> Top Gun Garage</span>
+                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-house-chimney"></i> Buying Utah Homes</span>
+                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-globe"></i> C7A</span>
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-house"></i> Whetzel Home Collective</span>
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-robot"></i> AI SEO Local</span>
                                     <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-passport"></i> QuickPassport</span>
@@ -399,46 +544,104 @@
                                 </li>
                             </ul>
 
-                            <div class="gsc-results-container" style="margin-top: 1.5rem; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,159,28,0.3); border-radius: var(--radius-md); padding: 1.2rem 1.5rem;">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.5rem;">
-                                    <h4 style="font-size: 1rem; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-                                        <i class="fa-solid fa-chart-line"></i> Proven Google Search Console Reports
-                                    </h4>
-                                    <div class="gsc-slider-controls" style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <button id="gsc-prev-btn" aria-label="Previous Slide" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fa-solid fa-chevron-left"></i></button>
-                                        <span id="gsc-counter" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; min-width: 45px; text-align: center;">1 / 5</span>
-                                        <button id="gsc-next-btn" aria-label="Next Slide" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fa-solid fa-chevron-right"></i></button>
-                                    </div>
-                                </div>
+                            <section class="gsc-deck" data-gsc-deck id="cloud7-gsc-deck" tabindex="0" aria-label="Google Search Console reports">
+                                <div class="gsc-deck-frame">
+                                    <header class="gsc-deck-header">
+                                        <div>
+                                            <h4><i class="fa-solid fa-chart-line"></i> Google Search Console Reports</h4>
+                                            <p class="gsc-deck-sub">Verified performance from live client accounts</p>
+                                        </div>
+                                        <div class="gsc-deck-controls">
+                                            <button class="gsc-nav gsc-nav-prev" type="button" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
+                                            <span class="gsc-counter" data-gsc-counter>1 of 5</span>
+                                            <button class="gsc-nav gsc-nav-next" type="button" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
+                                        </div>
+                                    </header>
 
-                                <div id="gsc-carousel" style="display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 0.3rem;">
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/gsc_proof_5.jpg" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/gsc_proof_5.jpg" alt="Google Search Console Proof 1" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
+                                    <div class="gsc-stage-wrap">
+                                        <div class="gsc-stage" data-gsc-stage>
+                                            <article class="gsc-panel is-active"
+                                                data-src="assets/gsc_cloud7_nationalconcrete.png"
+                                                data-title="Custom-range search performance"
+                                                data-node="nationalconcretepolishing.com"
+                                                data-clicks="17.1K"
+                                                data-clicks-delta=""
+                                                data-impr="4.81M"
+                                                data-impr-delta=""
+                                                data-ctr="0.4%"
+                                                data-pos="27.3">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/gsc_cloud7_nationalconcrete.png" alt="National Concrete Polishing Search Console: 17.1k clicks, 4.81 million impressions, position 27.3">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                            <article class="gsc-panel"
+                                                data-src="assets/gsc_cloud7_buyingutah.png"
+                                                data-title="Custom-range search performance"
+                                                data-node="buyingutahhomes.com"
+                                                data-clicks="291"
+                                                data-clicks-delta=""
+                                                data-impr="59K"
+                                                data-impr-delta=""
+                                                data-ctr="0.5%"
+                                                data-pos="16.2">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/gsc_cloud7_buyingutah.png" alt="Buying Utah Homes Search Console: 291 clicks, 59k impressions, position 16.2">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                            <article class="gsc-panel"
+                                                data-src="assets/gsc_cloud7_c7a.png"
+                                                data-title="Custom-range search performance"
+                                                data-node="c7a.io"
+                                                data-clicks="122"
+                                                data-clicks-delta=""
+                                                data-impr="133K"
+                                                data-impr-delta=""
+                                                data-ctr="0.1%"
+                                                data-pos="64.5">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/gsc_cloud7_c7a.png" alt="c7a.io Search Console: 122 clicks, 133k impressions, position 64.5">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                            <article class="gsc-panel"
+                                                data-src="assets/gsc_cloud7_robv.png"
+                                                data-title="Custom-range search performance"
+                                                data-node="robv.ca"
+                                                data-clicks="1.62K"
+                                                data-clicks-delta=""
+                                                data-impr="227K"
+                                                data-impr-delta=""
+                                                data-ctr="0.7%"
+                                                data-pos="12.1">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/gsc_cloud7_robv.png" alt="robv.ca Search Console: 1.62k clicks, 227k impressions, position 12.1">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                            <article class="gsc-panel"
+                                                data-src="assets/gsc_cloud7_topgungarage.png"
+                                                data-title="Custom-range search performance"
+                                                data-node="topgun-garage.com"
+                                                data-clicks="1.31K"
+                                                data-clicks-delta=""
+                                                data-impr="273K"
+                                                data-impr-delta=""
+                                                data-ctr="0.5%"
+                                                data-pos="33.4">
+                                                <div class="gsc-screen">
+                                                    <img src="assets/gsc_cloud7_topgungarage.png" alt="Top Gun Garage Search Console: 1.31k clicks, 273k impressions, position 33.4">
+                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
+                                                </div>
+                                            </article>
+                                        </div>
                                     </div>
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/gsc_proof_4.jpg" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/gsc_proof_4.jpg" alt="Google Search Console Proof 2" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
-                                    </div>
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/gsc_proof_1.jpg" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/gsc_proof_1.jpg" alt="Google Search Console Proof 3" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
-                                    </div>
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/gsc_proof_3.jpg" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/gsc_proof_3.jpg" alt="Google Search Console Proof 4" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
-                                    </div>
-                                    <div class="gsc-slide-item" style="flex: 0 0 calc(50% - 0.5rem); min-width: 260px; max-width: 420px; background: rgba(15, 20, 29, 0.9); border: 1px solid rgba(255,159,28,0.25); border-radius: var(--radius-sm); overflow: hidden;">
-                                        <a href="assets/gsc_proof_2.jpg" target="_blank" title="Click to open full resolution">
-                                            <img src="assets/gsc_proof_2.jpg" alt="Google Search Console Proof 5" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                        </a>
-                                    </div>
+
+                                    <div class="gsc-telemetry" data-gsc-telemetry></div>
+                                    <div class="gsc-thumbs" data-gsc-thumbs></div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -493,6 +696,16 @@
                         </button>
                         <div class="faq-answer">
                             <p>Yes! I manage Local SEO strategies for clients across North America (Canada & US) as well as international client accounts remotely with full communication via email and video consultations.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card">
+                        <button class="faq-question">
+                            <span><i class="fa-brands fa-google"></i> When will Google Ads management be available?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Google Ads is <strong>coming soon</strong>. Search, Performance Max, and local campaigns will sit alongside Local SEO so paid and organic work together. Use the contact form to request <strong>early access</strong>.</p>
                         </div>
                     </div>
                 </div>
@@ -581,7 +794,7 @@
                 <div class="section-header">
                     <span class="section-tag">GET IN TOUCH</span>
                     <h2 class="section-title">Let's Rank Your <span class="gradient-text">Business Higher</span></h2>
-                    <p class="section-subtitle">Have a question or want to discuss a Local SEO project? Drop a message below!</p>
+                    <p class="section-subtitle">Have a question, a Local SEO project, or want early access to Google Ads? Drop a message below.</p>
                 </div>
 
                 <div class="contact-grid">
@@ -794,6 +1007,37 @@
                     <i class="fa-solid fa-xmark"></i> Close Preview
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div class="gsc-lightbox" id="gsc-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Search Console report">
+        <div class="gsc-lightbox-bg" data-gsc-close></div>
+        <div class="gsc-lightbox-shell">
+            <header class="gsc-lightbox-header">
+                <div>
+                    <span class="gsc-kicker" id="gsc-lb-kicker">Google Search Console</span>
+                    <h4 id="gsc-lb-title">Report</h4>
+                </div>
+                <div class="gsc-lightbox-tools">
+                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-out" aria-label="Zoom out"><i class="fa-solid fa-minus"></i></button>
+                    <span class="gsc-zoom-readout" id="gsc-zoom-readout">100%</span>
+                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-in" aria-label="Zoom in"><i class="fa-solid fa-plus"></i></button>
+                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-reset" aria-label="Reset zoom"><i class="fa-solid fa-compress"></i></button>
+                    <a class="gsc-tool-btn" id="gsc-open-raw" href="#" target="_blank" rel="noopener" aria-label="Open original image"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    <button type="button" class="gsc-tool-btn gsc-tool-close" data-gsc-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </header>
+
+            <div class="gsc-lightbox-stage">
+                <button type="button" class="gsc-nav gsc-nav-prev" id="gsc-lb-prev" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="gsc-lightbox-viewport" id="gsc-lb-viewport">
+                    <img id="gsc-lb-image" alt="">
+                </div>
+                <button type="button" class="gsc-nav gsc-nav-next" id="gsc-lb-next" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="gsc-telemetry gsc-lightbox-telemetry" id="gsc-lb-telemetry"></div>
+            <div class="gsc-thumbs gsc-lightbox-thumbs" id="gsc-lb-thumbs"></div>
         </div>
     </div>
 

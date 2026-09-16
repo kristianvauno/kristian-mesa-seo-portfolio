@@ -4,6 +4,7 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initSiteIntro();
     initNavigation();
     initHeroInteractivity();
     initAnimatedCounters();
@@ -14,6 +15,231 @@ document.addEventListener('DOMContentLoaded', () => {
     initResumeModal();
     initFaqAccordion();
 });
+
+/* Cinematic intro overlay — search, pin drop, name, Map Pack rank, reveal */
+function initSiteIntro() {
+    const root = document.getElementById('site-intro');
+    const alreadySkip = document.documentElement.classList.contains('intro-complete');
+
+    if (!root || alreadySkip) {
+        if (root) {
+            root.classList.add('is-done');
+            root.setAttribute('aria-hidden', 'true');
+        }
+        setTimeout(() => document.dispatchEvent(new CustomEvent('km-intro-complete')), 0);
+        return;
+    }
+
+    const queryEl = document.getElementById('intro-search-query');
+    const statusEl = document.getElementById('intro-status');
+    const rankEl = document.getElementById('intro-rank-num');
+    const skipBtn = document.getElementById('intro-skip');
+    const progressFill = document.getElementById('intro-progress-fill');
+    const canvas = document.getElementById('intro-canvas');
+    const query = 'kristian mesa seo';
+    const timers = [];
+    let canvasRaf = 0;
+    let rankRaf = 0;
+    let finished = false;
+    const startedAt = performance.now();
+    const totalMs = 6200;
+
+    document.documentElement.classList.add('intro-playing');
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    document.querySelectorAll('[data-intro-letters]').forEach((el, lineIdx) => {
+        splitIntroLetters(el, lineIdx * 260);
+    });
+
+    later(() => setPhase('phase-search'), 80);
+    later(() => typeQuery(0), 420);
+    later(() => setStatus('Crawling local pack…'), 900);
+    later(() => setStatus('Indexing ranking signals…'), 1700);
+    later(() => setPhase('phase-scan'), 2300);
+    later(() => setPhase('phase-name'), 2680);
+    later(() => {
+        setPhase('phase-rank');
+        countRank(18, 1, 900);
+    }, 4300);
+    later(() => setStatus('Ranked.'), 4300);
+    later(() => exitIntro(false), 5900);
+    later(tickProgress, 60);
+
+    if (skipBtn) skipBtn.addEventListener('click', () => exitIntro(true));
+    document.addEventListener('keydown', onIntroKey);
+
+    if (canvas && canvas.getContext) startIntroCanvas(canvas);
+
+    function later(fn, ms) {
+        const id = setTimeout(fn, ms);
+        timers.push(id);
+        return id;
+    }
+
+    function setPhase(name) {
+        root.classList.add(name);
+    }
+
+    function tickProgress() {
+        if (finished || !progressFill) return;
+        const p = Math.min(96, ((performance.now() - startedAt) / totalMs) * 100);
+        progressFill.style.width = p + '%';
+        later(tickProgress, 80);
+    }
+
+    function setStatus(text) {
+        if (statusEl) statusEl.textContent = text;
+    }
+
+    function typeQuery(i) {
+        if (finished || !queryEl) return;
+        queryEl.textContent = query.slice(0, i);
+        if (i < query.length) later(() => typeQuery(i + 1), 48);
+        else setStatus('Submitting query…');
+    }
+
+    function countRank(from, to, duration) {
+        const start = performance.now();
+        function tick(now) {
+            if (finished || !rankEl) return;
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const value = Math.round(from + (to - from) * eased);
+            rankEl.textContent = String(value);
+            if (progressFill) progressFill.style.width = Math.min(100, 70 + t * 30) + '%';
+            if (t < 1) {
+                rankRaf = requestAnimationFrame(tick);
+            } else {
+                document.getElementById('intro-rank')?.classList.add('is-locked');
+            }
+        }
+        rankRaf = requestAnimationFrame(tick);
+    }
+
+    function onIntroKey(e) {
+        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            exitIntro(true);
+        }
+    }
+
+    function exitIntro(skipped) {
+        if (finished) return;
+        finished = true;
+        timers.forEach(clearTimeout);
+        cancelAnimationFrame(canvasRaf);
+        cancelAnimationFrame(rankRaf);
+        document.removeEventListener('keydown', onIntroKey);
+
+        if (progressFill) progressFill.style.width = '100%';
+        try { sessionStorage.setItem('km-intro-played', '1'); } catch (e) {}
+
+        if (skipped) {
+            root.style.transition = 'opacity 0.4s ease';
+            root.style.opacity = '0';
+            setTimeout(teardown, 420);
+        } else {
+            root.classList.add('is-exiting');
+            setTimeout(teardown, 760);
+        }
+    }
+
+    function teardown() {
+        root.classList.add('is-done');
+        root.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('intro-playing');
+        document.documentElement.classList.add('intro-complete');
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo(0, 0);
+        document.documentElement.style.removeProperty('position');
+        document.documentElement.style.removeProperty('inset');
+        document.documentElement.style.removeProperty('top');
+        document.dispatchEvent(new CustomEvent('km-intro-complete'));
+    }
+
+    function splitIntroLetters(el, extraDelay) {
+        const text = el.textContent.trim();
+        el.textContent = '';
+        [...text].forEach((ch, i) => {
+            const span = document.createElement('span');
+            span.className = 'intro-letter';
+            span.style.animationDelay = ((extraDelay || 0) + i * 58) + 'ms';
+            span.textContent = ch;
+            el.appendChild(span);
+        });
+    }
+
+    function startIntroCanvas(canvasEl) {
+        const ctx = canvasEl.getContext('2d');
+        let w = canvasEl.width = window.innerWidth;
+        let h = canvasEl.height = window.innerHeight;
+        const dots = Array.from({ length: 28 }, () => ({
+            a: Math.random() * Math.PI * 2,
+            r: 70 + Math.random() * Math.min(w, h) * 0.28,
+            s: 0.15 + Math.random() * 0.55
+        }));
+        let sweep = -Math.PI / 2;
+
+        function onResize() {
+            w = canvasEl.width = window.innerWidth;
+            h = canvasEl.height = window.innerHeight;
+        }
+        window.addEventListener('resize', onResize);
+
+        function draw() {
+            if (finished) {
+                window.removeEventListener('resize', onResize);
+                return;
+            }
+            ctx.clearRect(0, 0, w, h);
+            const cx = w / 2;
+            const cy = h * 0.46;
+            sweep += 0.018;
+
+            const grd = ctx.createRadialGradient(cx, cy, 20, cx, cy, Math.max(w, h) * 0.42);
+            grd.addColorStop(0, 'rgba(255,159,28,0.07)');
+            grd.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, w, h);
+
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, Math.min(w, h) * 0.38, sweep, sweep + 0.55);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 159, 28, 0.09)';
+            ctx.fill();
+
+            ctx.rotate(sweep);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(Math.min(w, h) * 0.38, 0);
+            ctx.strokeStyle = 'rgba(255, 183, 3, 0.55)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.restore();
+
+            dots.forEach((d) => {
+                const x = cx + Math.cos(d.a + sweep * 0.15) * d.r;
+                const y = cy + Math.sin(d.a + sweep * 0.15) * d.r * 0.62;
+                const ang = Math.atan2(y - cy, x - cx);
+                let delta = Math.abs(((ang - sweep + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
+                const hit = delta < 0.35;
+                ctx.beginPath();
+                ctx.arc(x, y, hit ? 3.2 : 1.6, 0, Math.PI * 2);
+                ctx.fillStyle = hit ? `rgba(255,183,3,${0.35 + d.s})` : `rgba(255,159,28,${0.18 + d.s * 0.2})`;
+                ctx.fill();
+            });
+
+            canvasRaf = requestAnimationFrame(draw);
+        }
+
+        draw();
+    }
+}
 
 /* Mobile Menu Toggle & Navbar Scroll Effect */
 function initNavigation() {
@@ -88,7 +314,12 @@ function initAnimatedCounters() {
     }
 
     window.addEventListener('scroll', startCounters);
-    startCounters(); // Run initial check
+
+    if (document.documentElement.classList.contains('intro-complete')) {
+        startCounters();
+    } else {
+        document.addEventListener('km-intro-complete', startCounters, { once: true });
+    }
 }
 
 /* Interactive AI Website & Local SEO Audit Engine */
@@ -489,46 +720,303 @@ function initElementorDownload() {
     });
 }
 
-/* Google Search Console Reports Carousel Slider */
+/* GSC Command Deck + inspect lightbox */
 function initGSCCarousel() {
-    function setupSingleCarousel(carouselId, prevBtnId, nextBtnId, counterId) {
-        const carousel = document.getElementById(carouselId);
-        const prevBtn = document.getElementById(prevBtnId);
-        const nextBtn = document.getElementById(nextBtnId);
-        const counter = document.getElementById(counterId);
+    const decks = Array.from(document.querySelectorAll('[data-gsc-deck]'));
+    if (!decks.length) return;
 
-        if (!carousel || !prevBtn || !nextBtn || !counter) return;
+    const lightbox = createGscLightbox();
 
-        const totalSlides = carousel.querySelectorAll('.gsc-slide-item').length;
+    decks.forEach((deck) => initGscDeck(deck, lightbox));
+}
 
-        function updateCounter() {
-            const slideItem = carousel.querySelector('.gsc-slide-item');
-            if (!slideItem) return;
-            const slideWidth = slideItem.offsetWidth + 16;
-            const scrollIndex = Math.round(carousel.scrollLeft / slideWidth) + 1;
-            const currentSlide = Math.min(Math.max(scrollIndex, 1), totalSlides);
-            counter.textContent = `${currentSlide} / ${totalSlides}`;
+function gscTelemetryHTML(data) {
+    const delta = (key) => data[key] ? `<em>${data[key]}</em>` : '';
+    return `
+        <div class="gsc-metric"><span>Clicks</span><strong>${data.clicks || '—'}${delta('clicksDelta')}</strong></div>
+        <div class="gsc-metric"><span>Impressions</span><strong>${data.impr || '—'}${delta('imprDelta')}</strong></div>
+        <div class="gsc-metric"><span>Average CTR</span><strong>${data.ctr || '—'}</strong></div>
+        <div class="gsc-metric"><span>Average position</span><strong>${data.pos || '—'}</strong></div>
+    `;
+}
+
+function readGscPanel(panel) {
+    return {
+        src: panel.dataset.src,
+        title: panel.dataset.title || 'Search Console Report',
+        node: panel.dataset.node || 'gsc-node',
+        clicks: panel.dataset.clicks,
+        clicksDelta: panel.dataset.clicksDelta,
+        impr: panel.dataset.impr,
+        imprDelta: panel.dataset.imprDelta,
+        ctr: panel.dataset.ctr,
+        pos: panel.dataset.pos,
+        alt: panel.querySelector('img')?.alt || panel.dataset.title || 'Search Console report'
+    };
+}
+
+function initGscDeck(deck, lightbox) {
+    const panels = Array.from(deck.querySelectorAll('.gsc-panel'));
+    const counter = deck.querySelector('[data-gsc-counter]');
+    const telemetry = deck.querySelector('[data-gsc-telemetry]');
+    const thumbsWrap = deck.querySelector('[data-gsc-thumbs]');
+    const prevBtn = deck.querySelector('.gsc-nav-prev');
+    const nextBtn = deck.querySelector('.gsc-nav-next');
+    if (!panels.length) return;
+
+    let index = Math.max(0, panels.findIndex((p) => p.classList.contains('is-active')));
+    let startX = 0;
+
+    panels.forEach((panel, i) => {
+        if (!panel.querySelector('.gsc-caption')) {
+            const caption = document.createElement('div');
+            caption.className = 'gsc-caption';
+            caption.innerHTML = `<strong>${panel.dataset.node || 'Client report'}</strong><span>${panel.dataset.title || ''}</span>`;
+            panel.appendChild(caption);
         }
 
-        prevBtn.addEventListener('click', () => {
-            const slideItem = carousel.querySelector('.gsc-slide-item');
-            if (!slideItem) return;
-            const slideWidth = slideItem.offsetWidth + 16;
-            carousel.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-        });
+        const thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'gsc-thumb';
+        thumb.setAttribute('aria-label', `Show report ${i + 1}`);
+        const img = document.createElement('img');
+        img.src = panel.dataset.src;
+        img.alt = '';
+        thumb.appendChild(img);
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsWrap.appendChild(thumb);
+    });
 
-        nextBtn.addEventListener('click', () => {
-            const slideItem = carousel.querySelector('.gsc-slide-item');
-            if (!slideItem) return;
-            const slideWidth = slideItem.offsetWidth + 16;
-            carousel.scrollBy({ left: slideWidth, behavior: 'smooth' });
-        });
+    const thumbs = Array.from(thumbsWrap.querySelectorAll('.gsc-thumb'));
 
-        carousel.addEventListener('scroll', updateCounter);
+    function setMode() {
+        const desktop = window.innerWidth >= 768;
+        if (desktop && panels.length === 2) deck.dataset.mode = 'twin';
+        else if (desktop && panels.length > 2) deck.dataset.mode = 'featured';
+        else deck.dataset.mode = 'single';
+        deck.dataset.count = String(panels.length);
     }
 
-    setupSingleCarousel('gsc-carousel', 'gsc-prev-btn', 'gsc-next-btn', 'gsc-counter');
-    setupSingleCarousel('raphael-gsc-carousel', 'raphael-gsc-prev-btn', 'raphael-gsc-next-btn', 'raphael-gsc-counter');
+    function render() {
+        panels.forEach((panel, i) => {
+            panel.classList.toggle('is-active', i === index);
+        });
+        thumbs.forEach((thumb, i) => thumb.classList.toggle('is-active', i === index));
+        if (counter) counter.textContent = `${index + 1} of ${panels.length}`;
+        if (telemetry) telemetry.innerHTML = gscTelemetryHTML(readGscPanel(panels[index]));
+    }
+
+    function goTo(next) {
+        index = (next + panels.length) % panels.length;
+        render();
+    }
+
+    prevBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goTo(index - 1);
+    });
+    nextBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goTo(index + 1);
+    });
+
+    panels.forEach((panel, i) => {
+        panel.setAttribute('role', 'button');
+        panel.tabIndex = 0;
+        panel.addEventListener('mouseenter', () => {
+            if (deck.dataset.mode === 'twin') {
+                index = i;
+                render();
+            }
+        });
+        const inspect = () => {
+            lightbox.open(panels.map(readGscPanel), i);
+        };
+        panel.addEventListener('click', inspect);
+        panel.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                inspect(e);
+            }
+        });
+    });
+
+    deck.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            goTo(index - 1);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            goTo(index + 1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            lightbox.open(panels.map(readGscPanel), index);
+        }
+    });
+
+    deck.addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    deck.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) < 40) return;
+        goTo(dx < 0 ? index + 1 : index - 1);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        setMode();
+        render();
+    });
+    setMode();
+    render();
+}
+
+function createGscLightbox() {
+    const root = document.getElementById('gsc-lightbox');
+    if (!root) {
+        return { open() {} };
+    }
+
+    const img = document.getElementById('gsc-lb-image');
+    const title = document.getElementById('gsc-lb-title');
+    const kicker = document.getElementById('gsc-lb-kicker');
+    const telemetry = document.getElementById('gsc-lb-telemetry');
+    const thumbs = document.getElementById('gsc-lb-thumbs');
+    const raw = document.getElementById('gsc-open-raw');
+    const viewport = document.getElementById('gsc-lb-viewport');
+    const zoomReadout = document.getElementById('gsc-zoom-readout');
+
+    let items = [];
+    let index = 0;
+    let zoom = 1;
+    let panX = 0;
+    let panY = 0;
+    let dragging = false;
+    let dragStart = { x: 0, y: 0, panX: 0, panY: 0 };
+
+    function applyTransform() {
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+        if (zoomReadout) zoomReadout.textContent = `${Math.round(zoom * 100)}%`;
+    }
+
+    function resetView() {
+        zoom = 1;
+        panX = 0;
+        panY = 0;
+        applyTransform();
+    }
+
+    function setZoom(next) {
+        zoom = Math.min(3, Math.max(1, next));
+        if (zoom === 1) {
+            panX = 0;
+            panY = 0;
+        }
+        applyTransform();
+    }
+
+    function paint() {
+        const item = items[index];
+        if (!item) return;
+        img.src = item.src;
+        img.alt = item.alt;
+        title.textContent = item.title;
+        kicker.textContent = item.node || 'Google Search Console';
+        telemetry.innerHTML = gscTelemetryHTML(item);
+        raw.href = item.src;
+        thumbs.innerHTML = '';
+        items.forEach((entry, i) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'gsc-thumb' + (i === index ? ' is-active' : '');
+            btn.setAttribute('aria-label', `Inspect report ${i + 1}`);
+            const thumbImg = document.createElement('img');
+            thumbImg.src = entry.src;
+            thumbImg.alt = '';
+            btn.appendChild(thumbImg);
+            btn.addEventListener('click', () => {
+                index = i;
+                resetView();
+                paint();
+            });
+            thumbs.appendChild(btn);
+        });
+    }
+
+    function open(nextItems, startIndex) {
+        items = nextItems;
+        index = startIndex;
+        resetView();
+        paint();
+        root.classList.add('is-open');
+        root.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        root.classList.remove('is-open');
+        root.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    root.querySelectorAll('[data-gsc-close]').forEach((el) => el.addEventListener('click', close));
+    document.getElementById('gsc-lb-prev')?.addEventListener('click', () => {
+        index = (index - 1 + items.length) % items.length;
+        resetView();
+        paint();
+    });
+    document.getElementById('gsc-lb-next')?.addEventListener('click', () => {
+        index = (index + 1) % items.length;
+        resetView();
+        paint();
+    });
+    document.getElementById('gsc-zoom-in')?.addEventListener('click', () => setZoom(zoom + 0.25));
+    document.getElementById('gsc-zoom-out')?.addEventListener('click', () => setZoom(zoom - 0.25));
+    document.getElementById('gsc-zoom-reset')?.addEventListener('click', resetView);
+
+    viewport?.addEventListener('wheel', (e) => {
+        if (!root.classList.contains('is-open')) return;
+        e.preventDefault();
+        setZoom(zoom + (e.deltaY < 0 ? 0.15 : -0.15));
+    }, { passive: false });
+
+    viewport?.addEventListener('pointerdown', (e) => {
+        if (zoom <= 1) return;
+        dragging = true;
+        viewport.classList.add('is-panning');
+        dragStart = { x: e.clientX, y: e.clientY, panX, panY };
+        viewport.setPointerCapture(e.pointerId);
+    });
+    viewport?.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        panX = dragStart.panX + (e.clientX - dragStart.x);
+        panY = dragStart.panY + (e.clientY - dragStart.y);
+        applyTransform();
+    });
+    viewport?.addEventListener('pointerup', () => {
+        dragging = false;
+        viewport.classList.remove('is-panning');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!root.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') {
+            index = (index - 1 + items.length) % items.length;
+            resetView();
+            paint();
+        }
+        if (e.key === 'ArrowRight') {
+            index = (index + 1) % items.length;
+            resetView();
+            paint();
+        }
+        if (e.key === '+' || e.key === '=') setZoom(zoom + 0.25);
+        if (e.key === '-' || e.key === '_') setZoom(zoom - 0.25);
+    });
+
+    return { open, close };
 }
 
 /* Dynamic Interactive 3D Hero Experience, Parallax, Cursor Spotlight & Typewriter */
@@ -609,18 +1097,29 @@ function initHeroInteractivity() {
             setTimeout(typeLoop, speed);
         }
 
-        setTimeout(typeLoop, 2000);
+        const startTypewriter = () => setTimeout(typeLoop, 800);
+        if (document.documentElement.classList.contains('intro-complete')) {
+            setTimeout(typeLoop, 2000);
+        } else {
+            document.addEventListener('km-intro-complete', startTypewriter, { once: true });
+        }
     }
 
     // 3. Full-Page Interactive Particle Canvas
     if (canvas) {
         const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        const sizeCanvas = () => {
+            const rect = canvas.getBoundingClientRect();
+            const nextW = Math.max(1, Math.round(rect.width));
+            const nextH = Math.max(1, Math.round(rect.height));
+            canvas.width = nextW;
+            canvas.height = nextH;
+            return { width: nextW, height: nextH };
+        };
+        let { width, height } = sizeCanvas();
 
         window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            ({ width, height } = sizeCanvas());
         });
 
         const numParticles = Math.min(Math.floor(width / 22), 65);
