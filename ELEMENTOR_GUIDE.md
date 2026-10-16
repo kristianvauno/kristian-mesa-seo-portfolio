@@ -51,6 +51,6 @@ If you want the exact styling, animations, interactive local audit tool, and smo
 | **Email** | Kristian.vauno@gmail.com |
 | **Phone** | 09632634962 |
 | **Location** | South Cotabato, Philippines |
-| **Current Agency** | Cloud 7 Agency (April 2024 – Present) |
+| **Current Agency** | Cloud 7 Agency (April 2024) |
 | **Key Specialty** | Google Business Profile, Citation Building, Local Rankings |
 | **Primary Tools** | Semrush, Ahrefs, Google Analytics, Screaming Frog, Canva |
