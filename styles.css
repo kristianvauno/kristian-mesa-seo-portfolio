@@ -753,6 +753,10 @@ section[id] {
     font-size: 0.95rem;
 }
 
+#new-skills .gads-offers {
+    margin-top: 1.4rem;
+}
+
 .badge-ads-soon {
     top: auto;
     bottom: -18px;
