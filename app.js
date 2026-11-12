@@ -1,4 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (motionOk) {
+        const groups = [
+            ".section-intro",
+            ".reason-list li",
+            ".service",
+            ".process-grid li",
+            ".about-copy",
+            ".about-side",
+            ".roles article",
+            ".work-card",
+            ".faq-layout > div",
+            ".faq",
+            ".contact > div",
+            ".form"
+        ];
+        groups.forEach((selector) => {
+            document.querySelectorAll(selector).forEach((el, index) => {
+                el.classList.add("reveal");
+                el.style.transitionDelay = `${Math.min(index, 6) * 70}ms`;
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-in");
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    }
+
     const nav = document.getElementById("nav");
     const toggle = document.getElementById("nav-toggle");
     const links = document.getElementById("nav-links");
