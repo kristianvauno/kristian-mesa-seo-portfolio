@@ -424,7 +424,7 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .outcome strong { font-family: var(--display); font-size: 1.25rem; letter-spacing: -0.03em; }
 .outcome span { color: var(--muted); font-size: 0.95rem; }
 .outcome:hover { border-color: var(--violet); }
-.results-block { margin-top: 4.5rem; }
+.results-block { margin-top: 0; }
 .results-block h3 { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 0.6rem; }
 .results-block > p { color: var(--muted); margin: 0 0 1.4rem; }
 
