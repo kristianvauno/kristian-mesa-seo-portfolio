@@ -248,9 +248,9 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
     border-radius: 1.8rem;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    object-position: center 18%;
+    object-position: center 68%;
 }
-.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; list-style: none; padding: 0; margin: 1rem 0 0; }
+.stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; list-style: none; padding: 0; margin: 1rem 0 0; }
 .stat-row li { border-top: 1px solid var(--line); padding-top: 0.7rem; }
 .stat-row strong { display: block; font-family: var(--display); font-size: 1.6rem; }
 .stat-row span { color: var(--muted); font-size: 0.85rem; }
