@@ -86,4 +86,34 @@ document.addEventListener("DOMContentLoaded", () => {
     lightbox.addEventListener("click", (event) => {
         if (event.target === lightbox) lightbox.close();
     });
+
+    const cursor = document.getElementById("cursor");
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    if (cursor && finePointer && motionOk) {
+        document.body.classList.add("has-cursor");
+        const dot = cursor.querySelector(".cursor-dot");
+        const ring = cursor.querySelector(".cursor-ring");
+        let x = 0;
+        let y = 0;
+        let ringX = 0;
+        let ringY = 0;
+        window.addEventListener("pointermove", (event) => {
+            x = event.clientX;
+            y = event.clientY;
+            dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+            cursor.classList.add("is-on");
+            const field = event.target.closest("input, textarea");
+            const hot = event.target.closest("a, button");
+            cursor.classList.toggle("is-text", Boolean(field));
+            cursor.classList.toggle("is-hover", Boolean(hot) && !field);
+        });
+        document.documentElement.addEventListener("pointerleave", () => cursor.classList.remove("is-on"));
+        const follow = () => {
+            ringX += (x - ringX) * 0.16;
+            ringY += (y - ringY) * 0.16;
+            ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(follow);
+        };
+        follow();
+    }
 });
