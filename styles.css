@@ -112,7 +112,15 @@ body::before {
     font-weight: 700;
     margin: 0 0 1rem;
 }
-h1 { font-size: clamp(3.4rem, 6.6vw, 6.6rem); max-width: 8em; }
+h1 { font-size: clamp(3.2rem, 6vw, 5.8rem); max-width: 9em; }
+h1 .mark {
+    background-image: linear-gradient(120deg, rgba(155, 109, 255, 0.55), rgba(106, 167, 255, 0.5));
+    background-repeat: no-repeat;
+    background-size: 0% 0.38em;
+    background-position: 0 88%;
+    animation: marker 0.9s 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes marker { to { background-size: 100% 0.38em; } }
 .lede { color: var(--muted); max-width: 38rem; font-size: 1.08rem; }
 .hero-stat { display: flex; align-items: baseline; gap: 0.8rem; margin: 1.6rem 0; }
 .hero-stat strong { font-family: var(--display); font-size: 4.2rem; letter-spacing: -0.05em; }
@@ -258,6 +266,46 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .roles h3 { font-size: 1.5rem; }
 .roles header p, .roles time { color: var(--muted); margin: 0.3rem 0 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1rem 0; }
+.client-links { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1rem 0; }
+.client-links a, .client-links > span {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 0.05rem;
+    min-width: 0;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    text-decoration: none;
+    color: var(--ink);
+}
+.client-links a span {
+    color: var(--violet);
+    font-size: 0.75rem;
+}
+.client-links a::before, .client-links > span::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 20%, rgba(180, 140, 255, 0.55) 50%, transparent 80%);
+    transform: translateX(-130%);
+    animation: chip-shine 5.4s ease-in-out infinite;
+}
+.client-links a:nth-child(2)::before { animation-delay: 0.35s; }
+.client-links a:nth-child(3)::before { animation-delay: 0.7s; }
+.client-links a:nth-child(4)::before { animation-delay: 1.05s; }
+.client-links a:nth-child(5)::before { animation-delay: 1.4s; }
+.client-links a:nth-child(6)::before { animation-delay: 1.75s; }
+.client-links a:nth-child(7)::before { animation-delay: 2.1s; }
+.client-links a:nth-child(8)::before { animation-delay: 2.45s; }
+.client-links > span::before { animation-delay: 2.8s; }
+.client-links a:hover {
+    border-color: var(--violet);
+    box-shadow: 0 0 0 1px rgba(155, 109, 255, 0.45), 0 0 24px rgba(155, 109, 255, 0.28);
+}
+@keyframes chip-shine { 35%, 100% { transform: translateX(130%); } }
+
 .chips a, .chips span, .chips button {
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -386,7 +434,8 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .glow, body::before, .hero-copy > *, .hero-portrait, .marquee-track { animation: none; }
+    .glow, body::before, .hero-copy > *, .hero-portrait, .marquee-track, h1 .mark, .client-links a::before, .client-links > span::before { animation: none; }
+    h1 .mark { background-size: 100% 0.38em; }
     .reveal { opacity: 1; transform: none; transition: none; }
 }
 
