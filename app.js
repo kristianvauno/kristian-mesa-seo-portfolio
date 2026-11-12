@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const processStage = document.querySelector(".process-stage");
+    const processWide = window.matchMedia("(min-width: 761px)");
+    const processScrollOn = motionOk && processWide.matches && processStage;
+    if (processScrollOn) setupProcessScroll(processStage, processWide);
     if (motionOk) {
         const groups = [
             ".section-intro",
             ".reason-list li",
             ".service",
-            ".process-grid li",
             ".about-copy",
             ".about-side",
             ".roles article",
@@ -15,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ".contact > div",
             ".form"
         ];
+        if (!processScrollOn) groups.push(".process-grid li");
         groups.forEach((selector) => {
             document.querySelectorAll(selector).forEach((el, index) => {
                 el.classList.add("reveal");
@@ -117,3 +121,74 @@ document.addEventListener("DOMContentLoaded", () => {
         follow();
     }
 });
+
+function setupProcessScroll(stage, wide) {
+    const cards = [...stage.querySelectorAll(".process-grid li")];
+    const tracks = [
+        { from: 0, to: 0.2, y: 50 },
+        { from: 0.2, to: 0.4, y: 100 },
+        { from: 0.4, to: 0.6, y: 150 },
+        { from: 0.6, to: 0.8, y: 200 }
+    ];
+    let target = 0;
+    let shown = 0;
+    let running = false;
+
+    const rawProgress = () => {
+        const rect = stage.getBoundingClientRect();
+        const view = window.innerHeight;
+        const start = view;
+        const end = view - rect.height;
+        const span = start - end;
+        if (span <= 0) return 1;
+        return Math.min(1, Math.max(0, (start - rect.top) / span));
+    };
+
+    const paint = (progress) => {
+        cards.forEach((card, index) => {
+            const track = tracks[index];
+            const t = Math.min(1, Math.max(0, (progress - track.from) / (track.to - track.from)));
+            card.style.opacity = String(t);
+            card.style.transform = `translateY(${track.y * (1 - t)}%) rotateY(${-180 * (1 - t)}deg)`;
+        });
+    };
+
+    const tick = () => {
+        if (!wide.matches) {
+            running = false;
+            return;
+        }
+        target = rawProgress();
+        shown += (target - shown) * 0.1;
+        if (Math.abs(target - shown) < 0.001) shown = target;
+        paint(shown);
+        if (shown !== target) requestAnimationFrame(tick);
+        else running = false;
+    };
+
+    const kick = () => {
+        if (!wide.matches) {
+            stage.classList.remove("is-scroll");
+            cards.forEach((card) => {
+                card.style.opacity = "";
+                card.style.transform = "";
+            });
+            running = false;
+            return;
+        }
+        stage.classList.add("is-scroll");
+        cards.forEach((card) => {
+            card.classList.remove("reveal", "is-in");
+            card.style.transitionDelay = "";
+        });
+        if (!running) {
+            running = true;
+            requestAnimationFrame(tick);
+        }
+    };
+
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", kick);
+    wide.addEventListener("change", kick);
+    kick();
+}

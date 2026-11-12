@@ -610,6 +610,23 @@ body.has-cursor input, body.has-cursor textarea { cursor: text; }
     .service-body { padding-left: 0; }
 }
 
+@media (min-width: 761px) {
+    .process-stage.is-scroll { height: 300vh; }
+    .process-stage.is-scroll .process-grid {
+        position: sticky;
+        top: 7rem;
+        perspective: 1000px;
+    }
+    .process-stage.is-scroll .process-grid li {
+        opacity: 0;
+        transform: translateY(50%) rotateY(-180deg);
+        transform-style: preserve-3d;
+    }
+    .process-stage.is-scroll .process-grid li:nth-child(2) { transform: translateY(100%) rotateY(-180deg); }
+    .process-stage.is-scroll .process-grid li:nth-child(3) { transform: translateY(150%) rotateY(-180deg); }
+    .process-stage.is-scroll .process-grid li:nth-child(4) { transform: translateY(200%) rotateY(-180deg); }
+}
+
 @media (max-width: 760px) {
     .nav-toggle { display: block; }
     .nav-links {
@@ -628,4 +645,14 @@ body.has-cursor input, body.has-cursor textarea { cursor: text; }
     .process-grid, .work-grid, .outcome-grid, .stat-row { grid-template-columns: 1fr; }
     .roles header { flex-direction: column; }
     .hero { padding-top: 2.4rem; }
+    .process-stage.is-scroll { height: auto; }
+    .process-stage.is-scroll .process-grid { position: static; perspective: none; }
+    .process-stage.is-scroll .process-grid li { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .process-stage,
+    .process-stage.is-scroll { height: auto; }
+    .process-stage.is-scroll .process-grid { position: static; perspective: none; }
+    .process-stage.is-scroll .process-grid li { opacity: 1; transform: none; }
 }
