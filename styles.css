@@ -118,9 +118,37 @@ h1 .mark {
     background-repeat: no-repeat;
     background-size: 0% 0.38em;
     background-position: 0 88%;
-    animation: marker 0.9s 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: marker 0.9s 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards, mark-glow 2.6s 2.1s ease-in-out infinite;
 }
 @keyframes marker { to { background-size: 100% 0.38em; } }
+@keyframes mark-glow { 50% { filter: brightness(1.45); } }
+.word { display: inline-block; }
+.hero-copy > h1 { animation: none; }
+.hero-copy h1 .word { animation: enter 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-copy h1 .word:nth-child(1) { animation-delay: 0.12s; }
+.hero-copy h1 .word:nth-child(2) { animation-delay: 0.24s; }
+.hero-copy h1 .word:nth-child(3) { animation-delay: 0.36s; }
+.hero-copy h1 .word.mark {
+    animation:
+        enter 0.75s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both,
+        marker 0.9s 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+        mark-glow 2.6s 2.2s ease-in-out infinite;
+}
+.live-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.45rem;
+    border-radius: 50%;
+    background: var(--violet);
+    box-shadow: 0 0 0 0 rgba(155, 109, 255, 0.7);
+    animation: ping 1.8s ease-out infinite;
+    vertical-align: 0.05em;
+}
+@keyframes ping {
+    70% { box-shadow: 0 0 0 8px rgba(155, 109, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(155, 109, 255, 0); }
+}
 .lede { color: var(--muted); max-width: 38rem; font-size: 1.08rem; }
 .hero-stat { display: flex; align-items: baseline; gap: 0.8rem; margin: 1.6rem 0; }
 .hero-stat strong { font-family: var(--display); font-size: 4.2rem; letter-spacing: -0.05em; }
@@ -131,6 +159,31 @@ h1 .mark {
     margin: 0;
     position: relative;
 }
+.hero-portrait::before {
+    content: "";
+    position: absolute;
+    inset: 8% -6% auto;
+    height: 70%;
+    background: radial-gradient(circle, rgba(155, 109, 255, 0.55), transparent 68%);
+    filter: blur(18px);
+    z-index: -1;
+    animation: glow-pulse 4.2s ease-in-out infinite;
+}
+.hero-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    animation: floaty 5.5s ease-in-out 1.15s infinite;
+}
+.hero-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.32) 50%, transparent 68%);
+    transform: translateX(-130%);
+    animation: photo-shine 5.2s 1.6s ease-in-out infinite;
+    pointer-events: none;
+}
 .hero-portrait img {
     width: 100%;
     aspect-ratio: 4 / 5;
@@ -138,16 +191,31 @@ h1 .mark {
     object-position: center 18%;
     border-radius: 2rem;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px rgba(90, 40, 200, 0.35);
+    animation: photo-zoom 8s ease-in-out infinite alternate;
 }
 .hero-portrait figcaption {
     position: absolute;
     left: 1.2rem;
     bottom: 1.2rem;
+    z-index: 1;
     background: rgba(7, 6, 13, 0.72);
     border: 1px solid var(--line);
     border-radius: 999px;
     padding: 0.45rem 0.9rem;
     font-size: 0.85rem;
+}
+@keyframes floaty {
+    50% { transform: translateY(-12px); }
+}
+@keyframes glow-pulse {
+    50% { opacity: 0.45; transform: scale(1.08); }
+}
+@keyframes photo-shine {
+    0%, 55% { transform: translateX(-130%); }
+    100% { transform: translateX(130%); }
+}
+@keyframes photo-zoom {
+    to { transform: scale(1.06); }
 }
 
 .btn {
@@ -434,7 +502,7 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .glow, body::before, .hero-copy > *, .hero-portrait, .marquee-track, h1 .mark, .client-links a::before, .client-links > span::before { animation: none; }
+    .glow, body::before, .hero-copy > *, .hero-portrait, .hero-portrait::before, .hero-frame, .hero-frame::after, .hero-portrait img, .live-dot, .marquee-track, h1 .mark, .hero-copy h1 .word, .client-links a::before, .client-links > span::before { animation: none; }
     h1 .mark { background-size: 100% 0.38em; }
     .reveal { opacity: 1; transform: none; transition: none; }
 }
