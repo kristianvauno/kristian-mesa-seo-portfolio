@@ -303,11 +303,54 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
     gap: 1rem;
 }
 .process-grid li {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 1.4rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    min-height: 340px;
     padding: 1.4rem;
-    min-height: 220px;
+    background: #100818;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.6rem;
+}
+.process-grid li::before {
+    content: "";
+    position: absolute;
+    width: 220%;
+    height: 180%;
+    left: -70%;
+    top: -95%;
+    background: radial-gradient(circle, rgba(168, 92, 255, 0.95) 0%, rgba(110, 50, 210, 0.45) 26%, rgba(40, 16, 80, 0.15) 48%, transparent 64%);
+    animation: card-glow 7s ease-in-out infinite;
+    pointer-events: none;
+}
+.process-grid li:nth-child(2)::before { animation-delay: -1.8s; }
+.process-grid li:nth-child(3)::before { animation-delay: -3.6s; }
+.process-grid li:nth-child(4)::before { animation-delay: -5.2s; }
+.process-grid li:hover::before { animation-duration: 3.2s; }
+.process-grid span {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: auto;
+    border-radius: 0.95rem;
+    background: linear-gradient(180deg, #c59bff 0%, #7b45ef 100%);
+    color: #fff;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 30px rgba(110, 50, 220, 0.35);
+}
+.process-grid h3,
+.process-grid p { position: relative; z-index: 1; }
+@keyframes card-glow {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(18%, 22%, 0) scale(1.18); }
 }
 
 .about { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center; }
@@ -554,7 +597,7 @@ body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; }
 body.has-cursor input, body.has-cursor textarea { cursor: text; }
 
 @media (prefers-reduced-motion: reduce) {
-    .glow, body::before, .hero-copy > *, .hero-portrait, .hero-portrait::before, .hero-frame, .hero-frame::after, .hero-portrait img, .live-dot, .marquee-track, h1 .mark, .hero-copy h1 .word, .client-links a::before, .client-links > span::before { animation: none; }
+    .glow, body::before, .hero-copy > *, .hero-portrait, .hero-portrait::before, .hero-frame, .hero-frame::after, .hero-portrait img, .live-dot, .marquee-track, h1 .mark, .hero-copy h1 .word, .client-links a::before, .client-links > span::before, .process-grid li::before { animation: none; }
     h1 .mark { background-size: 100% 0.38em; }
     .reveal { opacity: 1; transform: none; transition: none; }
 }
