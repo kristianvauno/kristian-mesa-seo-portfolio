@@ -4,1004 +4,386 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kristian Mesa | Local SEO & Google Business Profile Specialist</title>
-    <meta name="description" content="Portfolio of Kristian Mesa - Local SEO Specialist specializing in Google Business Profile optimization, local rankings, citations, and technical SEO.">
+    <meta name="description" content="Portfolio of Kristian Mesa, a Local SEO specialist for Google Business Profile, local rankings, web development, and Google Ads.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script>
-        (function () {
-            try {
-                var force = new URLSearchParams(location.search).get('intro') === '1';
-                var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                var seen = sessionStorage.getItem('km-intro-played') === '1';
-                var hash = location.hash || '';
-                var deep = hash.length > 1 && hash !== '#hero' && hash !== '#intro';
-                if (!force && (reduce || seen || deep)) {
-                    document.documentElement.classList.add('intro-complete');
-                }
-            } catch (e) {}
-        })();
-    </script>
 </head>
-<body class="dark-theme">
-    <div id="site-intro" class="site-intro" role="dialog" aria-modal="true" aria-label="Kristian Mesa introduction">
-        <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
-        <div class="intro-vignette" aria-hidden="true"></div>
-        <div class="intro-grid" aria-hidden="true"></div>
-        <div class="intro-scanlines" aria-hidden="true"></div>
-        <div class="intro-flare" aria-hidden="true"></div>
-        <div class="intro-flash" aria-hidden="true"></div>
+<body>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
 
-        <div class="intro-stage">
-            <div class="intro-search" id="intro-search">
-                <div class="intro-search-chrome">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                    <span class="intro-search-query" id="intro-search-query"></span>
-                    <span class="intro-caret" aria-hidden="true"></span>
-                </div>
-                <p class="intro-status" id="intro-status">Initializing local search…</p>
-            </div>
-
-            <div class="intro-identity" id="intro-identity">
-                <div class="intro-pin-wrap" aria-hidden="true">
-                    <span class="intro-ring r1"></span>
-                    <span class="intro-ring r2"></span>
-                    <span class="intro-ring r3"></span>
-                    <svg class="intro-pin-svg" viewBox="0 0 64 64" fill="none">
-                        <path d="M32 4C20.4 4 11 14.1 11 26.4 11 42.2 32 60 32 60s21-17.8 21-33.6C53 14.1 43.6 4 32 4z" fill="url(#introPinGrad)" />
-                        <circle cx="32" cy="25" r="9" fill="#0B0E14" />
-                        <circle cx="32" cy="25" r="4.5" fill="#FFB703" />
-                        <defs>
-                            <linearGradient id="introPinGrad" x1="11" y1="4" x2="53" y2="60">
-                                <stop stop-color="#FFB703" />
-                                <stop offset="1" stop-color="#FF7B00" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <p class="intro-kicker">Local SEO · Google Map Pack</p>
-                <h1 class="intro-title">
-                    <span class="intro-line" data-intro-letters>KRISTIAN</span>
-                    <span class="intro-line accent" data-intro-letters>MESA</span>
-                </h1>
-                <p class="intro-tagline">Ranking businesses where customers actually search</p>
-            </div>
-
-            <div class="intro-rank" id="intro-rank" aria-hidden="true">
-                <span class="intro-rank-kicker">Google Rank</span>
-                <span class="intro-rank-num" id="intro-rank-num">18</span>
-                <span class="intro-rank-label">Position one</span>
-            </div>
-        </div>
-
-        <div class="intro-progress" aria-hidden="true"><span class="intro-progress-fill" id="intro-progress-fill"></span></div>
-        <button type="button" id="intro-skip">Skip intro</button>
-    </div>
-
-    <noscript>
-        <style>
-            #site-intro { display: none !important; }
-            html.intro-complete, html { overflow: auto; }
-        </style>
-    </noscript>
-
-    <!-- Global Interactive Ambient Background (Particles, Mesh Orbs & Spotlight) -->
-    <div id="global-bg-container" class="global-bg-container">
-        <div class="hero-bg-overlay"></div>
-        <div class="hero-spotlight-layer" id="hero-spotlight"></div>
-        <div class="hero-mesh-orb orb-1"></div>
-        <div class="hero-mesh-orb orb-2"></div>
-        <div class="hero-mesh-orb orb-3"></div>
-        <div class="hero-mesh-orb orb-4"></div>
-        <canvas id="hero-particles-canvas" class="hero-particles"></canvas>
-    </div>
-
-    <!-- Navbar -->
-    <header class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#hero" class="brand-logo">
-                <span class="logo-accent">KRISTIAN</span> MESA
-                <span class="badge-tag">LOCAL SEO</span>
-            </a>
-            
-            <nav class="nav-links" id="nav-links">
-                <a href="#about" class="nav-item"><i class="fa-solid fa-user"></i> About</a>
-                <a href="#skills" class="nav-item"><i class="fa-solid fa-bolt"></i> Skills & Tools</a>
-                <a href="#experience" class="nav-item"><i class="fa-solid fa-briefcase"></i> Experience</a>
-                <a href="#new-skills" class="nav-item"><i class="fa-solid fa-layer-group"></i> New Skills</a>
-                <a href="#faq" class="nav-item"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-
-                <button id="open-resume-btn-nav" class="btn btn-outline nav-btn"><i class="fa-solid fa-file-pdf"></i> Resume</button>
-                <a href="#contact" class="btn btn-primary nav-btn"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
-            </nav>
-
-            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
+    <header class="nav" id="nav">
+        <a class="logo" href="#top">KRISTIAN</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span>
+        </button>
+        <nav class="nav-links" id="nav-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#work">Work</a>
+            <a href="#faq">FAQ</a>
+            <a class="nav-cta" href="#contact"><span class="btn-label"><span>Contact me</span><span>Contact me</span></span></a>
+        </nav>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section" id="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="status-pill">
-                        <span class="status-dot"></span> Available for Local SEO Projects & Consultations
-                    </div>
-                    <h1 class="hero-title">
-                        Dominate Local Search & <span class="gradient-text dynamic-typewriter" id="hero-typewriter">Capture More Customers</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Hi, I'm <strong>Kristian Mesa</strong> — a results-driven <strong>Local SEO Specialist</strong>. I specialize in Google Business Profile (GBP) optimization, local search rankings, high-authority citation building, and technical SEO.
-                    </p>
-                    
-                    <div class="hero-stats">
-                        <div class="stat-card interactive-stat">
-                            <h3 class="counter" data-target="10">0</h3><span class="stat-plus">+</span>
-                            <p>Small Business Clients</p>
-                        </div>
-                        <div class="stat-card interactive-stat">
-                            <h3 class="counter" data-target="3">0</h3><span class="stat-plus">Top</span>
-                            <p>Top 3 Local Search Target</p>
-                        </div>
-                        <div class="stat-card interactive-stat">
-                            <h3 class="counter" data-target="240">0</h3><span class="stat-plus">%</span>
-                            <p>Average Traffic Boost</p>
-                        </div>
-                    </div>
-
-                    <div class="hero-cta-group">
-                        <a href="#new-skills" class="btn btn-primary btn-lg glow-effect">
-                            <i class="fa-solid fa-layer-group"></i> New Skills
-                        </a>
-                        <button id="open-resume-btn-hero" class="btn btn-secondary btn-lg">
-                            <i class="fa-solid fa-file-pdf"></i> Download CV
-                        </button>
-                        <a href="#contact" class="btn btn-outline btn-lg">
-                            <i class="fa-solid fa-calendar-check"></i> Get In Touch
-                        </a>
-                    </div>
+    <main id="top">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Hi, I’m Kristian Mesa</p>
+                <h1>I rank local businesses where customers actually search.</h1>
+                <p class="lede">Local SEO, Google Business Profile, web development, and Google Ads for service businesses across the US and Canada.</p>
+                <div class="hero-stat">
+                    <strong>10+</strong>
+                    <span>Small business clients</span>
                 </div>
-
-                <div class="hero-card-container" id="hero-card-3d">
-                    <!-- Floating Interactive Badges -->
-                    <div class="floating-hero-badge badge-top-right float-anim-1">
-                        <i class="fa-solid fa-fire text-gold"></i>
-                        <span>#1 Map Pack Ranker</span>
-                    </div>
-                    <div class="floating-hero-badge badge-bottom-left float-anim-2">
-                        <i class="fa-solid fa-arrow-trend-up text-emerald"></i>
-                        <span>+240% Traffic Boost</span>
-                    </div>
-                    <div class="floating-hero-badge badge-top-left float-anim-3">
-                        <i class="fa-solid fa-shield-halved text-cyan"></i>
-                        <span>Verified GBP Pro</span>
-                    </div>
-                    <div class="floating-hero-badge badge-ads-soon float-anim-1">
-                        <i class="fa-brands fa-google text-gold"></i>
-                        <span>Web Dev & Google Ads</span>
-                    </div>
-
-                    <div class="profile-card glass-card tilt-target">
-                        <div class="profile-avatar-wrapper">
-                            <div class="avatar-glow-ring"></div>
-                            <div class="profile-avatar">
-                                <img src="assets/profile_photo.jpg" alt="Kristian Mesa - SEO Specialist" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; border-radius: 50%; border: 3px solid var(--primary); display: block;">
-                            </div>
-                            <span class="verified-badge" title="Verified SEO Specialist"><i class="fa-solid fa-check"></i></span>
-                        </div>
-                        <div class="profile-info">
-                            <h2>Kristian Mesa</h2>
-                            <p class="role-title"><strong>SEO Specialist</strong> &bull; <i class="fa-solid fa-location-dot"></i> South Cotabato, Philippines</p>
-                            <a href="mailto:Kristian.vauno@gmail.com" class="email-link">
-                                <i class="fa-solid fa-envelope"></i> Kristian.vauno@gmail.com
-                            </a>
-                            <div class="profile-chips">
-                                <span>Local SEO</span>
-                                <span>GBP Optimization</span>
-                                <span>Content Creation</span>
-                                <span>Web Dev</span>
-                                <span>Google Ads</span>
-                            </div>
-                        </div>
-
-                        <div class="gbp-mockup-widget">
-                            <div class="gbp-header">
-                                <div class="gbp-logo"><i class="fa-brands fa-google"></i> Business Profile</div>
-                                <span class="gbp-rating"><i class="fa-solid fa-star"></i> 5.0 (Client Reviews)</span>
-                            </div>
-                            <div class="gbp-bars">
-                                <div class="gbp-bar-item">
-                                    <span>Profile Completeness</span>
-                                    <div class="progress-bg"><div class="progress-fill" style="width: 100%;"></div></div>
-                                </div>
-                                <div class="gbp-bar-item">
-                                    <span>Local Rank Velocity</span>
-                                    <div class="progress-bg"><div class="progress-fill" style="width: 92%;"></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hero-actions">
+                    <a class="btn btn-light" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
+                    <a class="btn btn-ghost" href="#work"><span class="btn-label"><span>View My Work</span><span>View My Work</span></span></a>
                 </div>
             </div>
+            <figure class="hero-portrait">
+                <img src="assets/profile_photo.jpg" alt="Kristian Mesa, Local SEO specialist">
+                <figcaption>Local SEO Specialist</figcaption>
+            </figure>
         </section>
 
-        <!-- About Section -->
-        <section class="section about-section" id="about">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">WHO I AM</span>
-                    <h2 class="section-title">Driven by Data, Focused on <span class="gradient-text">Local Growth</span></h2>
-                </div>
-
-                <div class="about-grid">
-                    <div class="about-card glass-card">
-                        <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <h3>Local SEO Focus</h3>
-                        <p>Specializing in Google Business Profile (GBP) optimization, local rankings, and citation building. I help small and medium businesses capture ready-to-buy customers in their immediate geographical location.</p>
-                    </div>
-
-                    <div class="about-card glass-card">
-                        <div class="card-icon"><i class="fa-solid fa-chart-line-up"></i></div>
-                        <h3>Proven Execution</h3>
-                        <p>Currently serving as an SEO Specialist at Cloud 7 Agency. Managed SEO and Google Business Profiles for over 10+ clients, delivering consistent organic traffic gains and local lead generation.</p>
-                    </div>
-
-                    <div class="about-card glass-card">
-                        <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
-                        <h3>Interests & Lifestyle</h3>
-                        <p>When I'm not auditing backlinks or optimizing meta tags, you can find me exploring new destinations (<strong>Travel</strong>) or immersing in competitive gaming (<strong>Gaming</strong>).</p>
-                    </div>
-                </div>
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>Local SEO</span><span>Google Business Profile</span><span>Citations</span><span>Web Development</span><span>Google Ads</span><span>On-Page SEO</span><span>Technical SEO</span>
+                <span>Local SEO</span><span>Google Business Profile</span><span>Citations</span><span>Web Development</span><span>Google Ads</span><span>On-Page SEO</span><span>Technical SEO</span>
             </div>
-        </section>
+        </div>
 
-        <!-- Skills & Tools Section -->
-        <section class="section skills-section" id="skills">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">CORE COMPETENCIES</span>
-                    <h2 class="section-title">Specialized Skills & <span class="gradient-text">SEO Toolkit</span></h2>
-                </div>
-
-                <div class="skills-wrapper">
-                    <!-- Personal Skills -->
-                    <div class="skills-category glass-card">
-                        <h3><i class="fa-solid fa-list-check"></i> Core Technical Skills</h3>
-                        <div class="skill-tags-grid">
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-store"></i>
-                                <span>GBP Optimization</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-quote-left"></i>
-                                <span>Citation Building</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-chart-line"></i>
-                                <span>Local Ranking Strategy</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-key"></i>
-                                <span>Keyword Research</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-code"></i>
-                                <span>On-Page SEO</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-stethoscope"></i>
-                                <span>Technical Audit</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-pen-nib"></i>
-                                <span>Content Creation</span>
-                            </div>
-                            <div class="skill-tag-item">
-                                <i class="fa-solid fa-palette"></i>
-                                <span>Graphic Design</span>
-                            </div>
-                        </div>
-
-                        <div class="skill-meters">
-                            <div class="meter-item">
-                                <div class="meter-labels">
-                                    <span>SEO Strategy & Local Optimization</span>
-                                    <span>95%</span>
-                                </div>
-                                <div class="meter-bar"><div class="meter-fill" style="width: 95%;"></div></div>
-                            </div>
-                            <div class="meter-item">
-                                <div class="meter-labels">
-                                    <span>Graphic Design (Canva & Visual Assets)</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="meter-bar"><div class="meter-fill" style="width: 88%;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tools Arsenal -->
-                    <div class="tools-category glass-card">
-                        <h3><i class="fa-solid fa-toolbox"></i> SEO & Design Suite</h3>
-                        <p class="tools-desc">Industry-standard tools I utilize daily to perform deep site audits, monitor rank position, and extract high-value local keywords.</p>
-                        
-                        <div class="tools-grid">
-                            <div class="tool-card">
-                                <div class="tool-icon semrush"><i class="fa-solid fa-magnifying-glass"></i></div>
-                                <h4>Semrush</h4>
-                                <p>Keyword Discovery & Competitor Analysis</p>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-icon ahrefs"><i class="fa-solid fa-link"></i></div>
-                                <h4>Ahrefs</h4>
-                                <p>Backlink Audits & Authority Metrics</p>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-icon analytics"><i class="fa-solid fa-chart-pie"></i></div>
-                                <h4>Google Analytics (GA4)</h4>
-                                <p>Traffic Attribution & Conversion Tracking</p>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-icon gsc"><i class="fa-solid fa-chart-line"></i></div>
-                                <h4>Google Search Console</h4>
-                                <p>Indexation, Search Performance & Click Analytics</p>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-icon frog"><i class="fa-solid fa-frog"></i></div>
-                                <h4>Screaming Frog</h4>
-                                <p>Crawling & Technical SEO Diagnostic</p>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-icon canva"><i class="fa-solid fa-paint-brush"></i></div>
-                                <h4>Canva</h4>
-                                <p>Visual Asset Creation & GBP Post Design</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <section class="section" id="why">
+            <div class="section-intro">
+                <p class="kicker">Why choose me</p>
+                <h2><span>Why Clients</span><span>Choose To Work</span></h2>
+                <p>Clients hire me for Map Pack work they can see in Search Console, steady communication, and a stack that now includes the website and the ads.</p>
             </div>
+            <ol class="reason-list">
+                <li>
+                    <span>01</span>
+                    <div>
+                        <h3>Map Pack focus</h3>
+                        <p>Google Business Profile, citations, and local pages aimed at customers who are ready to call.</p>
+                    </div>
+                </li>
+                <li>
+                    <span>02</span>
+                    <div>
+                        <h3>Search Console proof</h3>
+                        <p>Clicks, impressions, and average position from live client accounts, not vanity screenshots.</p>
+                    </div>
+                </li>
+                <li>
+                    <span>03</span>
+                    <div>
+                        <h3>Clear communication</h3>
+                        <p>Plain updates for owners in the US and Canada. Remote work from South Cotabato, Philippines.</p>
+                    </div>
+                </li>
+                <li>
+                    <span>04</span>
+                    <div>
+                        <h3>Site and ads together</h3>
+                        <p>Web development and Google Ads sit next to Local SEO, so the page and the campaign point at the same search.</p>
+                    </div>
+                </li>
+            </ol>
         </section>
 
-        <!-- Experience Section -->
-        <section class="section experience-section" id="experience">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">CAREER HISTORY</span>
-                    <h2 class="section-title">Work Experience & <span class="gradient-text">Achievements</span></h2>
-                </div>
-
-                <div class="timeline">
-                    <!-- Raphael Bergmann Experience -->
-                    <div class="timeline-item glass-card" style="margin-bottom: 2rem;">
-                        <div class="timeline-badge"><i class="fa-solid fa-user-check"></i></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div>
-                                    <h3 class="company-name">Raphael Bergmann</h3>
-                                    <h4 class="job-role">SEO Specialist & Local Optimization Consultant</h4>
-                                </div>
-                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> May 2026</span>
-                            </div>
-
-                            <div class="project-sites-tags" style="display: flex; gap: 0.8rem; margin-bottom: 1.2rem; flex-wrap: wrap;">
-                                <a href="https://asphaltpro.ca" target="_blank" rel="noopener" class="site-chip" style="background: rgba(255, 159, 28, 0.12); border: 1px solid var(--border-color); padding: 0.4rem 0.9rem; border-radius: var(--radius-full); color: var(--primary); font-size: 0.85rem; font-weight: 600; text-decoration: none;">
-                                    <i class="fa-solid fa-globe"></i> asphaltpro.ca
-                                </a>
-                                <a href="https://championgym.ca" target="_blank" rel="noopener" class="site-chip" style="background: rgba(255, 159, 28, 0.12); border: 1px solid var(--border-color); padding: 0.4rem 0.9rem; border-radius: var(--radius-full); color: var(--primary); font-size: 0.85rem; font-weight: 600; text-decoration: none;">
-                                    <i class="fa-solid fa-globe"></i> championgym.ca
-                                </a>
-                            </div>
-
-                            <ul class="experience-list">
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Executed targeted <strong>Local SEO</strong>, GBP optimization, and search visibility strategies for <strong><a href="https://asphaltpro.ca" target="_blank" rel="noopener" style="color:var(--primary); text-decoration:underline;">asphaltpro.ca</a></strong> and <strong><a href="https://championgym.ca" target="_blank" rel="noopener" style="color:var(--primary); text-decoration:underline;">championgym.ca</a></strong>.</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Optimized local citations, keyword targeting, and on-page content structures for paving & fitness business verticals.</span>
-                                </li>
-                            </ul>
-
-                            <section class="gsc-deck" data-gsc-deck id="raphael-gsc-deck" tabindex="0" aria-label="Google Search Console reports">
-                                <div class="gsc-deck-frame">
-                                    <header class="gsc-deck-header">
-                                        <div>
-                                            <h4><i class="fa-solid fa-chart-line"></i> Google Search Console Reports</h4>
-                                            <p class="gsc-deck-sub">Verified performance from live client accounts</p>
-                                        </div>
-                                        <div class="gsc-deck-controls">
-                                            <button class="gsc-nav gsc-nav-prev" type="button" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
-                                            <span class="gsc-counter" data-gsc-counter>1 of 2</span>
-                                            <button class="gsc-nav gsc-nav-next" type="button" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
-                                        </div>
-                                    </header>
-
-                                    <div class="gsc-stage-wrap">
-                                        <div class="gsc-stage" data-gsc-stage>
-                                            <article class="gsc-panel is-active"
-                                                data-src="assets/raphael_gsc_proof_1.png"
-                                                data-title="28-Day Performance Compare"
-                                                data-node="asphaltpro.ca"
-                                                data-clicks="113"
-                                                data-clicks-delta="+162.8%"
-                                                data-impr="12.7K"
-                                                data-impr-delta="+319.5%"
-                                                data-ctr="0.9%"
-                                                data-pos="20">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/raphael_gsc_proof_1.png" alt="Google Search Console 28-day compare: 113 clicks up 163 percent, 12.7k impressions">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                            <article class="gsc-panel"
-                                                data-src="assets/raphael_gsc_proof_2.png"
-                                                data-title="3-Month Performance Overview"
-                                                data-node="championgym.ca"
-                                                data-clicks="1.01K"
-                                                data-clicks-delta=""
-                                                data-impr="36K"
-                                                data-impr-delta=""
-                                                data-ctr="2.8%"
-                                                data-pos="9.3">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/raphael_gsc_proof_2.png" alt="ChampionGym Search Console: 1.01k clicks, 36k impressions, average position 9.3">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                        </div>
-                                    </div>
-
-                                    <div class="gsc-telemetry" data-gsc-telemetry></div>
-                                    <div class="gsc-thumbs" data-gsc-thumbs></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-
-                    <!-- Cloud 7 Agency Experience -->
-                    <div class="timeline-item glass-card">
-                        <div class="timeline-badge"><i class="fa-solid fa-building"></i></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div>
-                                    <h3 class="company-name">Cloud 7 Agency</h3>
-                                    <h4 class="job-role">SEO Specialist</h4>
-                                </div>
-                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> April 2024</span>
-                            </div>
-
-                            <div class="client-accounts-wrapper" style="margin-bottom: 1.2rem;">
-                                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.6rem;"><i class="fa-solid fa-briefcase"></i> Client Accounts Handled (10+ Clients):</span>
-                                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> National Concrete Polishing</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-star"></i> Top Gun Garage</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-house-chimney"></i> Buying Utah Homes</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-globe"></i> C7A</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-house"></i> Whetzel Home Collective</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-robot"></i> AI SEO Local</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-passport"></i> QuickPassport</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-city"></i> Rob Visnjak Real Estate Group</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-cubes"></i> SCC</span>
-                                    <span class="client-chip" style="background: rgba(255, 159, 28, 0.1); border: 1px solid var(--border-color); padding: 0.35rem 0.8rem; border-radius: var(--radius-full); font-size: 0.8rem; color: var(--accent); font-weight: 600;"><i class="fa-solid fa-trowel-bricks"></i> Concrete Contractors Canada</span>
-                                </div>
-                            </div>
-
-                            <ul class="experience-list">
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Assisted in local keyword research and competitive analysis for <strong>10+ small business clients</strong> Google Analytics Reporting.</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Monitored and responded to customer reviews on <strong>Google Business Profile</strong> and other review platforms.</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Supported on-page optimization efforts including meta tags, content optimization, and internal linking.</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <span>Tracked local search rankings and prepared weekly performance reports using industry-leading SEO tools.</span>
-                                </li>
-                            </ul>
-
-                            <section class="gsc-deck" data-gsc-deck id="cloud7-gsc-deck" tabindex="0" aria-label="Google Search Console reports">
-                                <div class="gsc-deck-frame">
-                                    <header class="gsc-deck-header">
-                                        <div>
-                                            <h4><i class="fa-solid fa-chart-line"></i> Google Search Console Reports</h4>
-                                            <p class="gsc-deck-sub">Verified performance from live client accounts</p>
-                                        </div>
-                                        <div class="gsc-deck-controls">
-                                            <button class="gsc-nav gsc-nav-prev" type="button" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
-                                            <span class="gsc-counter" data-gsc-counter>1 of 5</span>
-                                            <button class="gsc-nav gsc-nav-next" type="button" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
-                                        </div>
-                                    </header>
-
-                                    <div class="gsc-stage-wrap">
-                                        <div class="gsc-stage" data-gsc-stage>
-                                            <article class="gsc-panel is-active"
-                                                data-src="assets/gsc_cloud7_nationalconcrete.png"
-                                                data-title="Custom-range search performance"
-                                                data-node="nationalconcretepolishing.com"
-                                                data-clicks="17.1K"
-                                                data-clicks-delta=""
-                                                data-impr="4.81M"
-                                                data-impr-delta=""
-                                                data-ctr="0.4%"
-                                                data-pos="27.3">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/gsc_cloud7_nationalconcrete.png" alt="National Concrete Polishing Search Console: 17.1k clicks, 4.81 million impressions, position 27.3">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                            <article class="gsc-panel"
-                                                data-src="assets/gsc_cloud7_buyingutah.png"
-                                                data-title="Custom-range search performance"
-                                                data-node="buyingutahhomes.com"
-                                                data-clicks="291"
-                                                data-clicks-delta=""
-                                                data-impr="59K"
-                                                data-impr-delta=""
-                                                data-ctr="0.5%"
-                                                data-pos="16.2">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/gsc_cloud7_buyingutah.png" alt="Buying Utah Homes Search Console: 291 clicks, 59k impressions, position 16.2">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                            <article class="gsc-panel"
-                                                data-src="assets/gsc_cloud7_c7a.png"
-                                                data-title="Custom-range search performance"
-                                                data-node="c7a.io"
-                                                data-clicks="122"
-                                                data-clicks-delta=""
-                                                data-impr="133K"
-                                                data-impr-delta=""
-                                                data-ctr="0.1%"
-                                                data-pos="64.5">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/gsc_cloud7_c7a.png" alt="c7a.io Search Console: 122 clicks, 133k impressions, position 64.5">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                            <article class="gsc-panel"
-                                                data-src="assets/gsc_cloud7_robv.png"
-                                                data-title="Custom-range search performance"
-                                                data-node="robv.ca"
-                                                data-clicks="1.62K"
-                                                data-clicks-delta=""
-                                                data-impr="227K"
-                                                data-impr-delta=""
-                                                data-ctr="0.7%"
-                                                data-pos="12.1">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/gsc_cloud7_robv.png" alt="robv.ca Search Console: 1.62k clicks, 227k impressions, position 12.1">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                            <article class="gsc-panel"
-                                                data-src="assets/gsc_cloud7_topgungarage.png"
-                                                data-title="Custom-range search performance"
-                                                data-node="topgun-garage.com"
-                                                data-clicks="1.31K"
-                                                data-clicks-delta=""
-                                                data-impr="273K"
-                                                data-impr-delta=""
-                                                data-ctr="0.5%"
-                                                data-pos="33.4">
-                                                <div class="gsc-screen">
-                                                    <img src="assets/gsc_cloud7_topgungarage.png" alt="Top Gun Garage Search Console: 1.31k clicks, 273k impressions, position 33.4">
-                                                    <div class="gsc-inspect-hint"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View report</div>
-                                                </div>
-                                            </article>
-                                        </div>
-                                    </div>
-
-                                    <div class="gsc-telemetry" data-gsc-telemetry></div>
-                                    <div class="gsc-thumbs" data-gsc-thumbs></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
+        <section class="section" id="services">
+            <div class="section-intro">
+                <p class="kicker">Services</p>
+                <h2><span>What I</span><span>Actually Do</span></h2>
+                <p>Local search is the core. Web development and Google Ads are the new skills beside it.</p>
             </div>
-        </section>
-
-
-
-        <!-- Interactive FAQ Accordion -->
-        <section class="section faq-section" id="faq">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">FREQUENTLY ASKED QUESTIONS</span>
-                    <h2 class="section-title">Got Questions? <span class="gradient-text">We Have Answers</span></h2>
-                </div>
-
-                <div class="faq-accordion-wrapper">
-                    <div class="faq-item glass-card">
-                        <button class="faq-question">
-                            <span><i class="fa-solid fa-clock"></i> How fast can my business expect to see Google Map Pack ranking improvements?</span>
-                            <i class="fa-solid fa-chevron-down faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Most small business clients start seeing noticeable Map Pack movement within <strong>30 to 60 days</strong> depending on local competition density, existing GBP authority, and NAP consistency. Ongoing optimization solidifies long-term Top 3 rankings.</p>
-                        </div>
+            <div class="service-list" id="service-list">
+                <article class="service is-open">
+                    <button class="service-head" type="button">
+                        <span>01</span>
+                        <h3>Local SEO</h3>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="service-body">
+                        <p>Keyword research, on-page structure, and internal links for the cities and services a business wants to rank for.</p>
+                        <ul>
+                            <li>Local keyword research</li>
+                            <li>On-page SEO and internal links</li>
+                            <li>Monthly Search Console reports</li>
+                        </ul>
+                        <a class="btn btn-ghost" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
                     </div>
-
-                    <div class="faq-item glass-card">
-                        <button class="faq-question">
-                            <span><i class="fa-solid fa-store"></i> What is a Google Business Profile (GBP) and why is it crucial for local sales?</span>
-                            <i class="fa-solid fa-chevron-down faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Google Business Profile is Google's local map listing. Over 46% of all Google searches have local intent. Ranking in Google's Top 3 Map Pack captures over 70% of ready-to-buy local callers looking for immediate services in your city.</p>
-                        </div>
+                </article>
+                <article class="service">
+                    <button class="service-head" type="button">
+                        <span>02</span>
+                        <h3>Google Business Profile</h3>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="service-body">
+                        <p>The Map Pack listing, built so the name, address, phone, categories, and reviews agree with the website.</p>
+                        <ul>
+                            <li>Profile optimization</li>
+                            <li>Citation and NAP consistency</li>
+                            <li>Review response guidance</li>
+                        </ul>
+                        <a class="btn btn-ghost" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
                     </div>
-
-                    <div class="faq-item glass-card">
-                        <button class="faq-question">
-                            <span><i class="fa-solid fa-list-check"></i> What is included in your Local SEO service deliverables?</span>
-                            <i class="fa-solid fa-chevron-down faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Deliverables include complete GBP profile optimization, 30+ NAP citation building, JSON-LD LocalBusiness schema implementation, localized keyword silos, on-page SEO, review management guidance, and monthly Google Search Console performance reports.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item glass-card">
-                        <button class="faq-question">
-                            <span><i class="fa-solid fa-globe"></i> Do you work with businesses outside South Cotabato / International clients?</span>
-                            <i class="fa-solid fa-chevron-down faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Yes! I manage Local SEO strategies for clients across North America (Canada & US) as well as international client accounts remotely with full communication via email and video consultations.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item glass-card">
-                        <button class="faq-question">
-                            <span><i class="fa-brands fa-google"></i> Do you also do web development and Google Ads?</span>
-                            <i class="fa-solid fa-chevron-down faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Yes. <strong>Web development</strong> and <strong>Google Ads</strong> are new skills next to Local SEO. I build business sites, and I run Search, Performance Max, and local campaigns so paid and organic work together.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="new-skills">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">NEW SKILLS</span>
-                    <h2 class="section-title">Web Dev & <span class="gradient-text">Google Ads</span></h2>
-                    <p class="section-subtitle">Two skills added alongside Local SEO. Sites built for local businesses, and ads that capture the demand those sites create.</p>
-                </div>
-
-                <div class="about-grid">
-                    <article class="about-card glass-card">
-                        <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+                </article>
+                <article class="service">
+                    <button class="service-head" type="button">
+                        <span>03</span>
                         <h3>Web Development</h3>
-                        <p>Websites for local service businesses. Clear service pages, mobile layouts, and the on-page structure a contractor, clinic, or shop needs to show up in its city.</p>
-                        <div class="gads-offers">
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-solid fa-window-maximize"></i></div>
-                                <div>
-                                    <h3>Service Pages</h3>
-                                    <p>Landing pages written around the services and cities a business actually wants to rank for.</p>
-                                </div>
-                            </article>
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-brands fa-wordpress"></i></div>
-                                <div>
-                                    <h3>WordPress & Custom Sites</h3>
-                                    <p>WordPress builds and custom HTML when a template is not the right fit.</p>
-                                </div>
-                            </article>
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                                <div>
-                                    <h3>Speed & Mobile</h3>
-                                    <p>Fast pages on a phone, with titles, headings, and internal links set for search.</p>
-                                </div>
-                            </article>
-                        </div>
-                    </article>
-
-                    <article class="about-card glass-card">
-                        <div class="card-icon"><i class="fa-brands fa-google"></i></div>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="service-body">
+                        <p>Service pages and small business sites with the headings, speed, and mobile layout local search needs.</p>
+                        <ul>
+                            <li>Service and landing pages</li>
+                            <li>WordPress and custom HTML</li>
+                            <li>Speed and mobile layout</li>
+                        </ul>
+                        <a class="btn btn-ghost" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
+                    </div>
+                </article>
+                <article class="service">
+                    <button class="service-head" type="button">
+                        <span>04</span>
                         <h3>Google Ads</h3>
-                        <p>Paid search next to the Local SEO work. Search, Performance Max, and local campaigns aimed at calls, visits, and leads.</p>
-                        <div class="gads-offers">
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-solid fa-rectangle-ad"></i></div>
-                                <div>
-                                    <h3>Search Ads</h3>
-                                    <p>High-intent keywords that convert while organic rankings climb.</p>
-                                </div>
-                            </article>
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-solid fa-bolt"></i></div>
-                                <div>
-                                    <h3>Performance Max</h3>
-                                    <p>Full-funnel campaigns across Search, Maps, YouTube, and Display.</p>
-                                </div>
-                            </article>
-                            <article class="gads-offer">
-                                <div class="gads-offer-icon"><i class="fa-solid fa-location-dot"></i></div>
-                                <div>
-                                    <h3>Local Campaigns</h3>
-                                    <p>Map Pack plus paid local — one strategy for calls, visits, and leads.</p>
-                                </div>
-                            </article>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="service-body">
+                        <p>Search, Performance Max, and local campaigns aimed at the same calls and visits the organic work is building.</p>
+                        <ul>
+                            <li>Search ads</li>
+                            <li>Performance Max</li>
+                            <li>Local campaigns</li>
+                        </ul>
+                        <a class="btn btn-ghost" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="process">
+            <div class="section-intro">
+                <p class="kicker">Work process</p>
+                <h2><span>How a Local</span><span>Project Runs</span></h2>
+            </div>
+            <ol class="process-grid">
+                <li>
+                    <span>01</span>
+                    <h3>Research</h3>
+                    <p>Services, cities, and the competitors already sitting in the Map Pack.</p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h3>Profile and citations</h3>
+                    <p>Google Business Profile, NAP, and the listings that have to match the site.</p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h3>Pages and content</h3>
+                    <p>Titles, headings, internal links, and service pages written for that city.</p>
+                </li>
+                <li>
+                    <span>04</span>
+                    <h3>Report</h3>
+                    <p>Search Console clicks, impressions, and position, explained in plain language.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="about-copy">
+                <p class="kicker">About me</p>
+                <h2><span>Focused On</span><span>Local Search</span></h2>
+                <p>I’m Kristian Mesa, an SEO specialist in South Cotabato, Philippines. I work remotely with businesses in the US and Canada.</p>
+                <p>At Cloud 7 Agency I support local keyword research, Google Business Profile reviews, on-page edits, and weekly reports for 10+ clients. On asphaltpro.ca and championgym.ca I handle the Local SEO and GBP work more directly.</p>
+                <p>Outside the audits I travel and play games. The work itself stays on rankings, citations, and the pages customers land on.</p>
+                <a class="btn btn-light" href="#contact"><span class="btn-label"><span>Let’s Talk</span><span>Let’s Talk</span></span></a>
+            </div>
+            <div class="about-side">
+                <img src="assets/profile_photo.jpg" alt="Portrait of Kristian Mesa">
+                <ul class="stat-row">
+                    <li><strong>10+</strong><span>Clients</span></li>
+                    <li><strong>2</strong><span>Active roles</span></li>
+                    <li><strong>US &amp; CA</strong><span>Client markets</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <div class="section-intro">
+                <p class="kicker">Experience</p>
+                <h2><span>Where I’ve</span><span>Done the Work</span></h2>
+            </div>
+            <div class="roles">
+                <article>
+                    <header>
+                        <div>
+                            <h3>SEO Specialist &amp; Local Optimization Consultant</h3>
+                            <p>Raphael Bergmann</p>
                         </div>
+                        <time>May 2026</time>
+                    </header>
+                    <div class="chips">
+                        <a href="https://asphaltpro.ca" target="_blank" rel="noopener">asphaltpro.ca</a>
+                        <a href="https://championgym.ca" target="_blank" rel="noopener">championgym.ca</a>
+                    </div>
+                    <ul>
+                        <li>Local SEO, GBP optimization, and search visibility for asphaltpro.ca and championgym.ca.</li>
+                        <li>Citations, keyword targeting, and on-page structure for paving and fitness.</li>
+                    </ul>
+                </article>
+                <article>
+                    <header>
+                        <div>
+                            <h3>SEO Specialist</h3>
+                            <p>Cloud 7 Agency</p>
+                        </div>
+                        <time>April 2024</time>
+                    </header>
+                    <div class="chips">
+                        <span>National Concrete Polishing</span>
+                        <span>Top Gun Garage</span>
+                        <span>Buying Utah Homes</span>
+                        <span>C7A</span>
+                        <span>Whetzel Home Collective</span>
+                        <span>AI SEO Local</span>
+                        <span>QuickPassport</span>
+                        <span>Rob Visnjak Real Estate Group</span>
+                        <span>SCC Concrete Contractors Canada</span>
+                    </div>
+                    <ul>
+                        <li>Local keyword research and competitive analysis for 10+ small business clients.</li>
+                        <li>Google Business Profile review monitoring and responses.</li>
+                        <li>On-page work: meta tags, content, and internal linking.</li>
+                        <li>Ranking checks and weekly performance reports.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="work">
+            <div class="section-intro">
+                <p class="kicker">Selected work</p>
+                <h2><span>Search Console</span><span>From Live Accounts</span></h2>
+                <p>These are the reports behind the client work. Click a card to open the screenshot.</p>
+            </div>
+            <div class="work-grid">
+                <button class="work-card" type="button" data-full="assets/raphael_gsc_proof_1.png">
+                    <img src="assets/raphael_gsc_proof_1.png" alt="asphaltpro.ca Search Console: 113 clicks, up 163 percent, 12.7k impressions">
+                    <span>asphaltpro.ca · 113 clicks, +163%</span>
+                </button>
+                <button class="work-card" type="button" data-full="assets/raphael_gsc_proof_2.png">
+                    <img src="assets/raphael_gsc_proof_2.png" alt="championgym.ca Search Console: 1.01k clicks, 36k impressions, position 9.3">
+                    <span>championgym.ca · 1.01k clicks</span>
+                </button>
+                <button class="work-card" type="button" data-full="assets/gsc_cloud7_nationalconcrete.png">
+                    <img src="assets/gsc_cloud7_nationalconcrete.png" alt="National Concrete Polishing Search Console: 17.1k clicks and 4.81 million impressions">
+                    <span>National Concrete · 17.1k clicks</span>
+                </button>
+                <button class="work-card" type="button" data-full="assets/gsc_cloud7_topgungarage.png">
+                    <img src="assets/gsc_cloud7_topgungarage.png" alt="Top Gun Garage Search Console: 1.31k clicks and 273k impressions">
+                    <span>Top Gun Garage · 1.31k clicks</span>
+                </button>
+                <button class="work-card" type="button" data-full="assets/gsc_cloud7_robv.png">
+                    <img src="assets/gsc_cloud7_robv.png" alt="robv.ca Search Console: 1.62k clicks and 227k impressions">
+                    <span>robv.ca · 1.62k clicks</span>
+                </button>
+                <button class="work-card" type="button" data-full="assets/gsc_cloud7_buyingutah.png">
+                    <img src="assets/gsc_cloud7_buyingutah.png" alt="Buying Utah Homes Search Console: 291 clicks and 59k impressions">
+                    <span>Buying Utah Homes · 291 clicks</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="faq-layout">
+                <div>
+                    <p class="kicker">FAQ</p>
+                    <h2><span>Frequently</span><span>Asked Questions</span></h2>
+                    <p>Short answers on timing, Google Business Profile, deliverables, and the newer web and ads work.</p>
+                </div>
+                <div class="faq-list">
+                    <article class="faq is-open">
+                        <button type="button">How fast can Map Pack rankings move? <i class="fa-solid fa-plus"></i></button>
+                        <p>Most small business clients start seeing noticeable Map Pack movement within 30 to 60 days. It depends on competition, the current Google Business Profile, and whether the name, address, and phone match everywhere.</p>
+                    </article>
+                    <article class="faq">
+                        <button type="button">What is a Google Business Profile? <i class="fa-solid fa-plus"></i></button>
+                        <p>It is Google’s local map listing. A large share of Google searches have local intent, and the top Map Pack results take most of the calls from people who want a service in their city now.</p>
+                    </article>
+                    <article class="faq">
+                        <button type="button">What is included in Local SEO? <i class="fa-solid fa-plus"></i></button>
+                        <p>GBP optimization, citation building, LocalBusiness schema, localized pages, on-page SEO, review guidance, and a monthly Search Console report.</p>
+                    </article>
+                    <article class="faq">
+                        <button type="button">Do you work with clients outside the Philippines? <i class="fa-solid fa-plus"></i></button>
+                        <p>Yes. I manage Local SEO for clients in Canada and the US, and I work remotely by email and video calls.</p>
+                    </article>
+                    <article class="faq">
+                        <button type="button">Do you also do web development and Google Ads? <i class="fa-solid fa-plus"></i></button>
+                        <p>Yes. Web development and Google Ads are new skills next to Local SEO. I build business sites and run Search, Performance Max, and local campaigns so paid and organic work together.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-
-
-        <!-- Contact Section -->
-        <section class="section contact-section" id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">GET IN TOUCH</span>
-                    <h2 class="section-title">Let's Rank Your <span class="gradient-text">Business Higher</span></h2>
-                    <p class="section-subtitle">Have a Local SEO project, a new website, or a Google Ads campaign? Drop a message below.</p>
-                </div>
-
-                <div class="contact-grid">
-                    <div class="contact-info-card glass-card">
-                        <h3>Contact Information</h3>
-                        <p class="contact-desc">Ready to dominate local search results and expand your digital footprint? Reach out directly.</p>
-
-                        <div class="contact-details">
-                            <div class="contact-item">
-                                <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
-                                <div>
-                                    <span>Direct Email</span>
-                                    <a href="mailto:Kristian.vauno@gmail.com">Kristian.vauno@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
-                                <div>
-                                    <span>Phone / Mobile</span>
-                                    <a href="tel:09632634962">09632634962</a>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
-                                <div>
-                                    <span>Location</span>
-                                    <p>South Cotabato, Philippines</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Verified Professional Networks -->
-                        <div class="social-badges-container">
-                            <h4>Verified Professional Networks</h4>
-                            <div class="social-badges-grid">
-                                <a href="https://www.onlinejobs.ph/jobseekers/info/3367873" target="_blank" rel="noopener noreferrer" class="social-badge-chip ojp-badge" title="View Profile on OnlineJobs.ph">
-                                    <i class="fa-solid fa-briefcase"></i>
-                                    <span>OnlineJobs.ph Profile</span>
-                                </a>
-                                <button id="open-resume-btn-contact" class="social-badge-chip resume-badge" title="View Full Resume CV">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                    <span>View Resume CV</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-form-card glass-card">
-                        <form id="contact-form" class="contact-form" action="https://formsubmit.co/Kristian.vauno@gmail.com" method="POST">
-                            <input type="hidden" name="_subject" value="New Local SEO Inquiry from Portfolio">
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_template" value="table">
-                            <div class="form-group">
-                                <label for="sender-name">Your Name</label>
-                                <input type="text" id="sender-name" name="name" placeholder="John Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sender-email">Your Email</label>
-                                <input type="email" id="sender-email" name="email" placeholder="john@example.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sender-subject">Subject</label>
-                                <input type="text" id="sender-subject" name="subject" placeholder="Local SEO Project Inquiry" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sender-message">Message</label>
-                                <textarea id="sender-message" name="message" rows="5" placeholder="Tell me about your business and your SEO goals..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg width-full glow-effect">
-                                <i class="fa-solid fa-paper-plane"></i> Send Message
-                            </button>
-                            <div id="contact-response" class="contact-response hidden"></div>
-                        </form>
-                    </div>
-                </div>
+        <section class="section contact" id="contact">
+            <div>
+                <p class="kicker">Contact me</p>
+                <h2><span>Talk About</span><span>Your Local Search</span></h2>
+                <p>A Local SEO project, a new website, or a Google Ads campaign. Send a note and I’ll reply by email.</p>
+                <ul class="contact-list">
+                    <li><a href="mailto:Kristian.vauno@gmail.com">Kristian.vauno@gmail.com</a></li>
+                    <li><a href="tel:09632634962">09632634962</a></li>
+                    <li>South Cotabato, Philippines</li>
+                    <li><a href="https://www.onlinejobs.ph/jobseekers/info/3367873" target="_blank" rel="noopener">OnlineJobs.ph profile</a></li>
+                </ul>
             </div>
+            <form class="form" action="https://formsubmit.co/Kristian.vauno@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New inquiry from Kristian Mesa portfolio">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <label>Your name <input type="text" name="name" required placeholder="Your name"></label>
+                <label>Your email <input type="email" name="email" required placeholder="you@company.com"></label>
+                <label>Subject <input type="text" name="subject" id="subject" required placeholder="Local SEO, a website, or Google Ads"></label>
+                <div class="chips" id="topic-chips">
+                    <button type="button" data-topic="Local SEO">Local SEO</button>
+                    <button type="button" data-topic="Google Business Profile">GBP</button>
+                    <button type="button" data-topic="Web Development">Web Development</button>
+                    <button type="button" data-topic="Google Ads">Google Ads</button>
+                </div>
+                <label>Message <textarea name="message" rows="5" required placeholder="What do you want to rank for, and in which city?"></textarea></label>
+                <button class="btn btn-light" type="submit"><span class="btn-label"><span>Send message</span><span>Send message</span></span></button>
+            </form>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-container">
-            <p>&copy; 2026 <strong>Kristian Mesa</strong> — Local SEO & GBP Specialist. All Rights Reserved.</p>
-            <div class="footer-links">
-                <a href="#hero">Back to Top <i class="fa-solid fa-arrow-up"></i></a>
-            </div>
+        <div>
+            <strong>Kristian Mesa</strong>
+            <p>Local SEO, Google Business Profile, web development, and Google Ads.</p>
         </div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <p class="fine">South Cotabato, Philippines · <a href="mailto:Kristian.vauno@gmail.com">Kristian.vauno@gmail.com</a></p>
     </footer>
 
-    <!-- Interactive Resume / CV Modal -->
-    <div id="resume-modal" class="modal-backdrop hidden">
-        <div class="modal-card glass-card">
-            <button id="close-resume-modal" class="modal-close-btn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
-
-            <div class="resume-header">
-                <div class="resume-avatar">
-                    <img src="assets/profile_photo.jpg" alt="Kristian Mesa">
-                </div>
-                <div class="resume-headline">
-                    <h2>Kristian Mesa</h2>
-                    <p class="resume-role"><strong>SEO Specialist & Local Optimization Expert</strong></p>
-                    <div class="resume-meta-tags">
-                        <span><i class="fa-solid fa-globe"></i> kristianmesa.gensanseo.com</span>
-                        <span><i class="fa-solid fa-envelope"></i> Kristian.vauno@gmail.com</span>
-                        <span><i class="fa-solid fa-location-dot"></i> Philippines, South Cotabato</span>
-                        <span><i class="fa-solid fa-phone"></i> 09632634962</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="resume-body">
-                <div class="resume-section">
-                    <h3><i class="fa-solid fa-user-gear"></i> About Me</h3>
-                    <p>Local SEO expert specializing in Google Business Profile optimization, local rankings, and citation building. Helping businesses capture more local customers.</p>
-                </div>
-
-                <div class="resume-section">
-                    <h3><i class="fa-solid fa-toolbox"></i> Tools & Software Toolkit</h3>
-                    <div class="resume-skills-chips">
-                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-screwdriver-wrench"></i> Semrush</span>
-                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-magnifying-glass"></i> AHref</span>
-                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-chart-line"></i> Google Analytics</span>
-                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-palette"></i> Canva</span>
-                        <span style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-bug"></i> Screaming Frog</span>
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3><i class="fa-solid fa-briefcase"></i> Work Experience</h3>
-                    <div class="resume-timeline">
-                        <!-- Raphael Bergmann -->
-                        <div class="timeline-item" style="margin-bottom: 1.8rem;">
-                            <div class="timeline-header">
-                                <div>
-                                    <h4 style="margin:0; font-size:1.05rem;">SEO Specialist & Local Optimization Consultant</h4>
-                                    <span class="timeline-company" style="margin-top:0.3rem; display:inline-block;">Raphael Bergmann</span>
-                                </div>
-                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> May 2026</span>
-                            </div>
-                            <div style="margin: 0.5rem 0 0.8rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                <span style="font-size: 0.78rem; background: rgba(255,159,28,0.12); border: 1px solid var(--border-color); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-weight: 600;"><i class="fa-solid fa-globe"></i> asphaltpro.ca</span>
-                                <span style="font-size: 0.78rem; background: rgba(255,159,28,0.12); border: 1px solid var(--border-color); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-weight: 600;"><i class="fa-solid fa-globe"></i> championgym.ca</span>
-                            </div>
-                            <ul>
-                                <li>Executed targeted <strong>Local SEO</strong>, GBP optimization, and search visibility strategies for <strong>asphaltpro.ca</strong> and <strong>championgym.ca</strong>.</li>
-                                <li>Optimized local citations, keyword targeting, and on-page content structures for paving & fitness business verticals.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Cloud 7 Agency -->
-                        <div class="timeline-item">
-                            <div class="timeline-header">
-                                <div>
-                                    <h4 style="margin:0; font-size:1.05rem;">SEO Specialist</h4>
-                                    <span class="timeline-company" style="margin-top:0.3rem; display:inline-block;">Cloud 7 Agency</span>
-                                </div>
-                                <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> April 2024</span>
-                            </div>
-                            <div style="margin: 0.5rem 0 0.8rem 0;">
-                                <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.4rem;">Client Accounts Handled (10+ Clients):</span>
-                                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">National Concrete Polishing</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Top Gun Garage</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Whetzel Home Collective</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">AI SEO Local</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">QuickPassport</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Rob Visnjak Real Estate Group</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">SCC</span>
-                                    <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">Concrete Contractors Canada</span>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>Assisted in local keyword research and competitive analysis for <strong>10+ small business clients</strong> Google Analytics Reporting.</li>
-                                <li>Monitored and responded to customer reviews on <strong>Google Business Profile</strong> and other review platforms.</li>
-                                <li>Supported on-page optimization efforts including meta tags, content optimization, and internal linking.</li>
-                                <li>Tracked local search rankings and prepared weekly performance reports using SEO tools.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3><i class="fa-solid fa-bolt"></i> Personal Skills</h3>
-                    <div class="resume-skills-chips">
-                        <span>GBP Optimization</span>
-                        <span>Citation</span>
-                        <span>Google Maps SEO</span>
-                        <span>Keyword Research</span>
-                        <span>On-Page SEO</span>
-                        <span>Technical Audit</span>
-                        <span>Content Creation</span>
-                        <span>Graphic Design</span>
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3><i class="fa-solid fa-heart"></i> Interests & Lifestyle</h3>
-                    <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem;">
-                        <span style="font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-map-location-dot text-gold"></i> TRAVEL</span>
-                        <span style="font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-gamepad text-gold"></i> GAMING</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="resume-footer">
-                <button id="print-resume-btn" class="btn btn-primary glow-effect">
-                    <i class="fa-solid fa-print"></i> Download / Print Resume (PDF)
-                </button>
-                <button id="close-resume-btn-footer" class="btn btn-outline">
-                    <i class="fa-solid fa-xmark"></i> Close Preview
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="gsc-lightbox" id="gsc-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Search Console report">
-        <div class="gsc-lightbox-bg" data-gsc-close></div>
-        <div class="gsc-lightbox-shell">
-            <header class="gsc-lightbox-header">
-                <div>
-                    <span class="gsc-kicker" id="gsc-lb-kicker">Google Search Console</span>
-                    <h4 id="gsc-lb-title">Report</h4>
-                </div>
-                <div class="gsc-lightbox-tools">
-                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-out" aria-label="Zoom out"><i class="fa-solid fa-minus"></i></button>
-                    <span class="gsc-zoom-readout" id="gsc-zoom-readout">100%</span>
-                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-in" aria-label="Zoom in"><i class="fa-solid fa-plus"></i></button>
-                    <button type="button" class="gsc-tool-btn" id="gsc-zoom-reset" aria-label="Reset zoom"><i class="fa-solid fa-compress"></i></button>
-                    <a class="gsc-tool-btn" id="gsc-open-raw" href="#" target="_blank" rel="noopener" aria-label="Open original image"><i class="fa-solid fa-up-right-from-square"></i></a>
-                    <button type="button" class="gsc-tool-btn gsc-tool-close" data-gsc-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            </header>
-
-            <div class="gsc-lightbox-stage">
-                <button type="button" class="gsc-nav gsc-nav-prev" id="gsc-lb-prev" aria-label="Previous report"><i class="fa-solid fa-chevron-left"></i></button>
-                <div class="gsc-lightbox-viewport" id="gsc-lb-viewport">
-                    <img id="gsc-lb-image" alt="">
-                </div>
-                <button type="button" class="gsc-nav gsc-nav-next" id="gsc-lb-next" aria-label="Next report"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div class="gsc-telemetry gsc-lightbox-telemetry" id="gsc-lb-telemetry"></div>
-            <div class="gsc-thumbs gsc-lightbox-thumbs" id="gsc-lb-thumbs"></div>
-        </div>
-    </div>
+    <dialog class="lightbox" id="lightbox">
+        <button type="button" class="lightbox-close" aria-label="Close">Close</button>
+        <img alt="">
+    </dialog>
 
     <script src="app.js"></script>
 </body>
