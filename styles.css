@@ -299,7 +299,7 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .client-links a:nth-child(6)::before { animation-delay: 1.75s; }
 .client-links a:nth-child(7)::before { animation-delay: 2.1s; }
 .client-links a:nth-child(8)::before { animation-delay: 2.45s; }
-.client-links > span::before { animation-delay: 2.8s; }
+.client-links a:nth-child(9)::before { animation-delay: 2.8s; }
 .client-links a:hover {
     border-color: var(--violet);
     box-shadow: 0 0 0 1px rgba(155, 109, 255, 0.45), 0 0 24px rgba(155, 109, 255, 0.28);
