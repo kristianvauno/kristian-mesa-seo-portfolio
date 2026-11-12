@@ -31,21 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     }
 
-    const stat = document.querySelector(".hero-stat strong");
-    if (motionOk && stat && stat.dataset.count) {
-        const target = Number(stat.dataset.count);
-        const started = performance.now();
-        const duration = 1200;
-        const tick = (now) => {
-            const progress = Math.min(1, (now - started) / duration);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            stat.textContent = Math.round(target * eased) + "+";
-            if (progress < 1) requestAnimationFrame(tick);
-        };
-        stat.textContent = "0+";
-        setTimeout(() => requestAnimationFrame(tick), 500);
-    }
-
     const nav = document.getElementById("nav");
     const toggle = document.getElementById("nav-toggle");
     const links = document.getElementById("nav-links");

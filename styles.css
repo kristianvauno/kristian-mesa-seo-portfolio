@@ -154,7 +154,7 @@ h1 .mark {
 .hero-stat strong { font-family: var(--display); font-size: 4.2rem; letter-spacing: -0.05em; }
 .hero-stat span { color: var(--muted); }
 .hero-actions, .hero-actions .btn { display: flex; }
-.hero-actions { gap: 0.8rem; flex-wrap: wrap; }
+.hero-actions { gap: 0.8rem; flex-wrap: wrap; margin-top: 1.8rem; }
 .hero-portrait {
     margin: 0;
     position: relative;
