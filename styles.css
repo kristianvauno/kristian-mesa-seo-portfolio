@@ -377,18 +377,31 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .process-grid h3,
 .process-grid p { position: relative; z-index: 1; }
 
-.tool-marquee { margin-top: 2.2rem; margin-bottom: 1.5rem; }
-.tool-marquee .marquee-track { animation-duration: 28s; }
+.tool-marquee { margin-top: 2.4rem; margin-bottom: 1.5rem; }
+.tool-marquee .marquee-track { animation-duration: 48s; }
+.tool-marquee .marquee-group { padding: 2.6rem 0; }
+.tool-marquee .marquee-group span {
+    gap: 3.4rem;
+    padding-right: 3.4rem;
+    font-family: var(--display);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+.tool-marquee .marquee-group span::after {
+    width: 0.62rem;
+    height: 0.62rem;
+}
 .tool-marquee .marquee-group span b {
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-    font-weight: 600;
+    gap: 1.05rem;
+    font-weight: 700;
 }
 .tool-marquee img {
-    width: 1.7rem;
-    height: 1.7rem;
-    border-radius: 0.4rem;
+    width: clamp(3.2rem, 5vw, 4.4rem);
+    height: clamp(3.2rem, 5vw, 4.4rem);
+    border-radius: 0.85rem;
 }
 
 @keyframes card-glow {
