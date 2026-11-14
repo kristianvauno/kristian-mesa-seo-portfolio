@@ -236,22 +236,50 @@ h1 .mark {
 
 .marquee {
     overflow: hidden;
-    border-block: 1px solid var(--line);
-    margin-top: 3rem;
+    width: 100%;
+    margin-top: 3.2rem;
+    border-top: 1px solid rgba(243, 240, 250, 0.22);
+    border-bottom: 1px solid rgba(243, 240, 250, 0.22);
+    background: transparent;
 }
 .marquee-track {
     display: flex;
-    gap: 2.5rem;
     width: max-content;
-    padding: 1rem 0;
-    animation: ticker 28s linear infinite;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.82rem;
-    color: var(--muted);
+    animation: ticker 36s linear infinite;
+    will-change: transform;
 }
-.marquee-track span::before { content: "•"; margin-right: 2.5rem; color: var(--violet); }
-@keyframes ticker { to { transform: translateX(-50%); } }
+.marquee-group {
+    display: flex;
+    align-items: center;
+    flex: none;
+    min-width: 100vw;
+    padding: 1.05rem 0;
+}
+.marquee-group span {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.4rem;
+    padding-right: 2.4rem;
+    color: rgba(243, 240, 250, 0.9);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.marquee-group span::after {
+    content: "";
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: rgba(243, 240, 250, 0.82);
+    flex: none;
+}
+@keyframes ticker {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+}
 
 .section { padding: 6.5rem 0 0; }
 .section-intro { max-width: 46rem; margin-bottom: 2.4rem; }
