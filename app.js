@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ".section-intro",
             ".reason-list li",
             ".service",
+            ".seo-tools",
+            ".tool-pills li",
             ".tool-grid li",
             ".about-copy",
             ".about-side",
