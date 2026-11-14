@@ -377,31 +377,31 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .process-grid h3,
 .process-grid p { position: relative; z-index: 1; }
 
-.tool-marquee { margin-top: 2.4rem; margin-bottom: 1.5rem; }
-.tool-marquee .marquee-track { animation-duration: 48s; }
-.tool-marquee .marquee-group { padding: 2.6rem 0; }
+.tool-marquee { margin-top: 2.2rem; margin-bottom: 1.5rem; }
+.tool-marquee .marquee-track { animation-duration: 36s; }
+.tool-marquee .marquee-group { padding: 1.45rem 0; }
 .tool-marquee .marquee-group span {
-    gap: 3.4rem;
-    padding-right: 3.4rem;
+    gap: 2.6rem;
+    padding-right: 2.6rem;
     font-family: var(--display);
-    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+    font-size: clamp(1.15rem, 1.8vw, 1.55rem);
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
 }
 .tool-marquee .marquee-group span::after {
-    width: 0.62rem;
-    height: 0.62rem;
+    width: 0.38rem;
+    height: 0.38rem;
 }
 .tool-marquee .marquee-group span b {
     display: inline-flex;
     align-items: center;
-    gap: 1.05rem;
+    gap: 0.7rem;
     font-weight: 700;
 }
 .tool-marquee img {
-    width: clamp(3.2rem, 5vw, 4.4rem);
-    height: clamp(3.2rem, 5vw, 4.4rem);
-    border-radius: 0.85rem;
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 0.45rem;
 }
 
 @keyframes card-glow {
