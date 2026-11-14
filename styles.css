@@ -245,7 +245,7 @@ h1 .mark {
 .marquee-track {
     display: flex;
     width: max-content;
-    animation: ticker 36s linear infinite;
+    animation: ticker 22s linear infinite;
     will-change: transform;
 }
 .marquee-group {
@@ -377,92 +377,19 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
 .process-grid h3,
 .process-grid p { position: relative; z-index: 1; }
 
-.seo-tools {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    padding: 1.5rem 1.5rem 1.6rem;
-    background: #140a22;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.6rem;
-}
-.seo-tools::before {
-    content: "";
-    position: absolute;
-    width: 70%;
-    height: 180%;
-    left: -10%;
-    top: -80%;
-    background: radial-gradient(circle, rgba(168, 92, 255, 0.85) 0%, rgba(110, 50, 210, 0.28) 36%, transparent 68%);
-    animation: card-glow 8s ease-in-out infinite;
-    pointer-events: none;
-}
-.seo-tools h3 {
-    position: relative;
-    z-index: 1;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    margin: 0 0 1.1rem;
-}
-.tool-pills {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.tool-pills li {
-    position: relative;
-    overflow: hidden;
+.tool-follow { padding-top: 1.6rem; }
+.tool-marquee { margin-top: 2.2rem; }
+.tool-marquee .marquee-track { animation-duration: 28s; }
+.tool-marquee .marquee-group span b {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.45rem 1rem 0.45rem 0.45rem;
-    border-radius: 0.9rem;
-    background: rgba(18, 10, 32, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
+    gap: 0.7rem;
     font-weight: 600;
-    line-height: 1;
-    animation: pill-live 7.2s ease-in-out infinite;
 }
-.tool-pills li:nth-child(2) { animation-delay: -6s; }
-.tool-pills li:nth-child(3) { animation-delay: -4.8s; }
-.tool-pills li:nth-child(4) { animation-delay: -3.6s; }
-.tool-pills li:nth-child(5) { animation-delay: -2.4s; }
-.tool-pills li:nth-child(6) { animation-delay: -1.2s; }
-.tool-pills li::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 20%, rgba(180, 140, 255, 0.45) 50%, transparent 80%);
-    transform: translateX(-130%);
-    animation: chip-shine 5.4s ease-in-out infinite;
-}
-.tool-pills li:nth-child(2)::before { animation-delay: 0.45s; }
-.tool-pills li:nth-child(3)::before { animation-delay: 0.9s; }
-.tool-pills li:nth-child(4)::before { animation-delay: 1.35s; }
-.tool-pills li:nth-child(5)::before { animation-delay: 1.8s; }
-.tool-pills li:nth-child(6)::before { animation-delay: 2.25s; }
-.tool-pills img,
-.tool-pills span {
-    position: relative;
-    z-index: 1;
-}
-.tool-pills img {
-    width: 1.85rem;
-    height: 1.85rem;
-    border-radius: 0.45rem;
-}
-.tool-pills li:hover {
-    border-color: var(--violet);
-    box-shadow: 0 0 0 1px rgba(155, 109, 255, 0.45), 0 0 24px rgba(155, 109, 255, 0.35);
-}
-@keyframes pill-live {
-    0%, 16%, 100% { border-color: rgba(255, 255, 255, 0.1); background: rgba(18, 10, 32, 0.72); }
-    8% { border-color: rgba(196, 160, 255, 0.95); background: rgba(90, 46, 170, 0.55); }
+.tool-marquee img {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.4rem;
 }
 
 .tool-grid {
@@ -772,7 +699,7 @@ body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; }
 body.has-cursor input, body.has-cursor textarea { cursor: text; }
 
 @media (prefers-reduced-motion: reduce) {
-    .glow, body::before, .hero-copy > *, .hero-portrait, .hero-portrait::before, .hero-frame, .hero-frame::after, .hero-portrait img, .live-dot, .marquee-track, h1 .mark, .hero-copy h1 .word, .client-links a::before, .client-links > span::before, .process-grid li::before, .seo-tools::before, .tool-grid li::before, .tool-grid img, .tool-pills li, .tool-pills li::before { animation: none; }
+    .glow, body::before, .hero-copy > *, .hero-portrait, .hero-portrait::before, .hero-frame, .hero-frame::after, .hero-portrait img, .live-dot, .marquee-track, h1 .mark, .hero-copy h1 .word, .client-links a::before, .client-links > span::before, .process-grid li::before, .tool-grid li::before, .tool-grid img { animation: none; }
     h1 .mark { background-size: 100% 0.38em; }
     .reveal { opacity: 1; transform: none; transition: none; }
 }
