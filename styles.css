@@ -134,6 +134,49 @@ h1 .mark {
 .intrigue { max-width: 38rem; margin: 0.4rem 0 0; }
 .hero-note { color: var(--muted); margin: 1rem 0 0; font-size: 0.95rem; }
 .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.lang-grid article { position: relative; overflow: hidden; }
+.lang-grid article::before {
+    content: "\201C";
+    position: absolute;
+    right: 0.8rem;
+    top: -0.6rem;
+    font-family: var(--display);
+    font-size: 7rem;
+    line-height: 1;
+    color: rgba(155, 109, 255, 0.2);
+    pointer-events: none;
+}
+.lang-grid h3, .lang-grid blockquote { position: relative; z-index: 1; }
+.art-banner {
+    margin: 0 0 1.6rem;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+.art-banner img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+.art-banner-short img { height: 240px; }
+.art-banner figcaption {
+    position: absolute;
+    left: 1.2rem;
+    bottom: 1rem;
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+}
+.art-square {
+    width: min(100%, 280px);
+    margin-top: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
 .lang-grid article, .offer-stack li {
     background: #100818;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -354,8 +397,9 @@ h2 span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(246, 243,
     padding: 1.4rem 0;
     cursor: pointer;
 }
+.service-head h3 i { color: var(--violet); font-size: 1rem; margin-right: 0.45rem; }
 .service-head i { transition: transform 0.3s ease; }
-.service.is-open .service-head i { transform: rotate(45deg); }
+.service.is-open .service-head > i { transform: rotate(45deg); }
 .service-body { display: none; padding: 0 0 1.6rem 5rem; max-width: 40rem; }
 .service.is-open .service-body { display: block; }
 .service-body ul { margin: 0 0 1.2rem; padding-left: 1.1rem; color: var(--muted); }
@@ -734,6 +778,8 @@ body.has-cursor input, body.has-cursor textarea { cursor: text; }
     }
     .nav-links.is-open { display: flex; }
     h1 { font-size: clamp(2.45rem, 12vw, 3.3rem); }
+    .art-banner img { height: 200px; }
+    .art-banner-short img { height: 160px; }
     .lede, .lang-grid blockquote, .offer-stack span { font-size: 1.12rem; }
     .process-grid, .work-grid, .outcome-grid, .stat-row { grid-template-columns: 1fr; }
     .roles header { flex-direction: column; }
