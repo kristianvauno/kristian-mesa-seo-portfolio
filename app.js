@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const groups = [
             ".section-intro",
             ".reason-list li",
+            ".lang-grid article",
+            ".offer-stack li",
             ".service",
             ".about-copy",
             ".about-side",
