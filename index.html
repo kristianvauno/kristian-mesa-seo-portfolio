@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
+    <canvas id="bg-motion" aria-hidden="true"></canvas>
     <div class="glow glow-a" aria-hidden="true"></div>
     <div class="glow glow-b" aria-hidden="true"></div>
     <div class="glow glow-c" aria-hidden="true"></div>
@@ -118,7 +119,12 @@
                 <p>Three parts. Why the phone stays quiet. What we change. And the name for that work, so it is not “just SEO.”</p>
             </div>
             <figure class="art-banner">
-                <img src="assets/map-pack.jpg" alt="Three glowing pins on a dark map" loading="lazy">
+                <div class="mg-map" role="img" aria-label="Three glowing pins on a dark map">
+                    <span class="mg-orbit"></span>
+                    <span class="mg-pin"><b></b><i></i></span>
+                    <span class="mg-pin"><b></b><i></i></span>
+                    <span class="mg-pin"><b></b><i></i></span>
+                </div>
                 <figcaption>Three spots. That is the Map Pack.</figcaption>
             </figure>
             <ol class="reason-list">
@@ -300,7 +306,10 @@
                 <p>Send the city and the job you want. I will tell you who is sitting in the Map Pack and what the first month looks like. I do not list a rate on this page.</p>
             </div>
             <figure class="art-banner art-banner-short">
-                <img src="assets/offer-cards.jpg" alt="Three glass cards in violet light" loading="lazy">
+                <div class="mg-cards" role="img" aria-label="Three glass cards in violet light">
+                    <span></span><span></span><span></span>
+                    <i class="mg-spot"></i>
+                </div>
             </figure>
             <ul class="offer-stack">
                 <li><strong>Who is in the Map Pack</strong><span>The businesses already taking the call for that job, in that city.</span></li>
@@ -433,7 +442,12 @@
                     <p class="kicker">Questions buyers ask</p>
                     <h2><span>Before you</span><span>Send the city</span></h2>
                     <p>Straight answers. No rate on this page.</p>
-                    <img class="art-square" src="assets/call-glow.jpg" alt="A glowing phone handset" loading="lazy">
+                    <div class="art-square mg-phone" role="img" aria-label="A glowing phone handset">
+                        <span class="mg-orb"></span>
+                        <span class="mg-ring"></span>
+                        <span class="mg-ring mg-ring-late"></span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.57 3.6 1 1 0 01-.25 1L6.6 10.8z"/></svg>
+                    </div>
                 </div>
                 <div class="faq-list">
                     <article class="faq is-open">
@@ -534,6 +548,6 @@
         <span class="cursor-dot"></span>
         <span class="cursor-ring"></span>
     </div>
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=6"></script>
 </body>
 </html>
