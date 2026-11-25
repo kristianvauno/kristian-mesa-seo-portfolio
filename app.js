@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ".about-side",
             ".roles article",
             ".work-card",
+            ".sample-card",
             ".faq-layout > div",
             ".faq",
             ".contact > div",
